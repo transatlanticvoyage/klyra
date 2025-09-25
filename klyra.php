@@ -26,16 +26,15 @@ class Klyra {
     
     public function __construct() {
         add_action('init', array($this, 'init'));
-        add_action('admin_menu', array($this, 'setup_admin'));
         add_action('admin_enqueue_scripts', array($this, 'enqueue_assets'));
-    }
-    
-    public function init() {
+        
+        // Initialize admin immediately so the admin_menu hook is registered early
+        $this->admin = new Klyra_Admin();
         $this->beamray_handler = new Klyra_Beamray_Handler();
     }
     
-    public function setup_admin() {
-        $this->admin = new Klyra_Admin();
+    public function init() {
+        // Plugin initialization code
     }
     
     public function enqueue_assets($hook) {

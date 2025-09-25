@@ -7,7 +7,8 @@ if (!defined('ABSPATH')) {
 class Klyra_Admin {
     
     public function __construct() {
-        add_action('admin_menu', array($this, 'add_admin_menu'));
+        // Use a higher priority to ensure this runs
+        add_action('admin_menu', array($this, 'add_admin_menu'), 9);
     }
     
     public function add_admin_menu() {
