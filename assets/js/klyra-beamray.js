@@ -9,7 +9,7 @@ jQuery(document).ready(function($) {
     let currentData = [];
     let activeFilters = {
         post_type: '',
-        post_status: ''
+        post_status: 'publish'  // Default to published posts
     };
     let currentColumnPage = 1;
     let columnsPerPage = 8;
@@ -103,30 +103,25 @@ jQuery(document).ready(function($) {
             loadData();
         }, 500));
         
-        $('.klyra-filter-btn').on('click', function() {
-            const filterType = $(this).data('filter');
-            const filterValue = $(this).data('value');
+        $('.klyra-status-filter-btn').on('click', function() {
+            const statusValue = $(this).data('status');
             
-            if ($(this).hasClass('active')) {
-                activeFilters[filterType] = '';
-                $(this).removeClass('active').css({
-                    'background': 'white',
-                    'color': '#333',
-                    'border-color': '#D1D5DB'
-                });
-            } else {
-                $('.klyra-filter-btn[data-filter="' + filterType + '"]').removeClass('active').css({
-                    'background': 'white',
-                    'color': '#333',
-                    'border-color': '#D1D5DB'
-                });
-                activeFilters[filterType] = filterValue;
-                $(this).addClass('active').css({
-                    'background': '#0073aa',
-                    'color': 'white',
-                    'border-color': '#0073aa'
-                });
-            }
+            // Remove active class from all status buttons
+            $('.klyra-status-filter-btn').removeClass('active').css({
+                'background': 'white',
+                'color': '#333',
+                'border-color': '#D1D5DB'
+            });
+            
+            // Add active class to clicked button
+            $(this).addClass('active').css({
+                'background': '#3B82F6',
+                'color': 'white',
+                'border-color': '#3B82F6'
+            });
+            
+            // Update filter
+            activeFilters.post_status = statusValue === 'all' ? '' : statusValue;
             
             currentPage = 1;
             loadData();

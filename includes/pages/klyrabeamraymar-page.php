@@ -29,6 +29,12 @@ function klyra_beamraymar_render_page() {
                         <span style="font-size: 16px; font-weight: bold;">mandible_chamber</span>
                         <button id="klyra-create-post-btn" class="button button-primary">Create New Post</button>
                         <button id="klyra-create-page-btn" class="button button-primary">Create New Page</button>
+                        <span style="font-size: 16px; font-weight: bold;">post_status</span>
+                        <div style="display: inline-flex; border-radius: 6px; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);">
+                            <button type="button" data-status="all" class="klyra-status-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; border-radius: 6px 0 0 6px; margin-right: -1px; cursor: pointer; background: white;">all</button>
+                            <button type="button" data-status="publish" class="klyra-status-filter-btn active" style="padding: 8px 12px; font-size: 14px; border: 1px solid #3B82F6; background: #3B82F6; color: white; margin-right: -1px; cursor: pointer;">published</button>
+                            <button type="button" data-status="draft" class="klyra-status-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; border-radius: 0 6px 6px 0; cursor: pointer; background: white;">draft</button>
+                        </div>
                     </div>
                     <div style="font-size: 16px; font-weight: bold; text-transform: lowercase;">
                         <span style="font-weight: bold;"><?php echo esc_html($wpdb->prefix); ?></span>zen_sitespren.sitespren_base: <?php echo esc_html($sitespren_base ?: ''); ?>
