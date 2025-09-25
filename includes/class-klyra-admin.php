@@ -12,13 +12,13 @@ class Klyra_Admin {
     
     public function add_admin_menu() {
         add_menu_page(
-            'Klyra',
-            'Klyra',
+            'klyra',
+            'klyra',
             'manage_options',
             'klyra',
             array($this, 'main_page'),
             'dashicons-database',
-            30
+            3
         );
         
         add_submenu_page(
