@@ -128,12 +128,9 @@ function klyra_beamraymar_render_page() {
                                             </div>
                                         </td>
                                         <td style="border: 1px solid black; padding: 4px;">
-                                            <div style="display: flex; gap: 4px;">
-                                                <button type="button" class="klyra-filter-btn" data-filter="post_type" data-value="post" style="padding: 8px 12px; border: 1px solid #D1D5DB; background: white; cursor: pointer; border-radius: 4px; font-size: 14px;">Post</button>
-                                                <button type="button" class="klyra-filter-btn" data-filter="post_type" data-value="page" style="padding: 8px 12px; border: 1px solid #D1D5DB; background: white; cursor: pointer; border-radius: 4px; font-size: 14px;">Page</button>
-                                                <button type="button" class="klyra-filter-btn" data-filter="post_status" data-value="publish" style="padding: 8px 12px; border: 1px solid #D1D5DB; background: white; cursor: pointer; border-radius: 4px; font-size: 14px;">Published</button>
-                                                <button type="button" class="klyra-filter-btn" data-filter="post_status" data-value="draft" style="padding: 8px 12px; border: 1px solid #D1D5DB; background: white; cursor: pointer; border-radius: 4px; font-size: 14px;">Draft</button>
-                                            </div>
+                                            <button type="button" id="klyra-wolf-options" style="background: #2563EB; color: white; font-weight: 500; padding: 8px 16px; border-radius: 6px; font-size: 14px; transition: background-color 0.15s ease; border: none; cursor: pointer;" onMouseOver="this.style.background='#1D4ED8'" onMouseOut="this.style.background='#2563EB'">
+                                                wolf options
+                                            </button>
                                         </td>
                                         <td style="border: 1px solid black; padding: 4px;">
                                             <button type="button" id="klyra-column-templates" style="background: #7C3AED; color: white; font-weight: 500; padding: 8px 16px; border-radius: 6px; font-size: 14px; transition: background-color 0.15s ease; border: none; cursor: pointer;">

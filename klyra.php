@@ -9,6 +9,7 @@
  */
 
 // Git subtree test comment - checking VSCode source control visibility
+// Test comment for saltwater klyra-analogue repo
 
 if (!defined('ABSPATH')) {
     exit;

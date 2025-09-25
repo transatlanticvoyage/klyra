@@ -75,15 +75,21 @@ jQuery(document).ready(function($) {
         $('#klyra-prev-row-page').on('click', function() {
             if (currentPage > 1) {
                 currentPage--;
-                loadData();
+            } else {
+                // Wrap to last page (infinite/recursive behavior)
+                currentPage = totalPages;
             }
+            loadData();
         });
         
         $('#klyra-next-row-page').on('click', function() {
             if (currentPage < totalPages) {
                 currentPage++;
-                loadData();
+            } else {
+                // Wrap to first page (infinite/recursive behavior)
+                currentPage = 1;
             }
+            loadData();
         });
         
         $('#klyra-last-row-page').on('click', function() {
@@ -144,10 +150,25 @@ jQuery(document).ready(function($) {
             const totalColPages = Math.ceil(allColumns.length / columnsPerPage);
             const btnId = $(this).attr('id');
             
-            if (btnId === 'klyra-first-col-page') currentColumnPage = 1;
-            else if (btnId === 'klyra-prev-col-page' && currentColumnPage > 1) currentColumnPage--;
-            else if (btnId === 'klyra-next-col-page' && currentColumnPage < totalColPages) currentColumnPage++;
-            else if (btnId === 'klyra-last-col-page') currentColumnPage = totalColPages;
+            if (btnId === 'klyra-first-col-page') {
+                currentColumnPage = 1;
+            } else if (btnId === 'klyra-prev-col-page') {
+                if (currentColumnPage > 1) {
+                    currentColumnPage--;
+                } else {
+                    // Wrap to last page (infinite/recursive behavior)
+                    currentColumnPage = totalColPages;
+                }
+            } else if (btnId === 'klyra-next-col-page') {
+                if (currentColumnPage < totalColPages) {
+                    currentColumnPage++;
+                } else {
+                    // Wrap to first page (infinite/recursive behavior)
+                    currentColumnPage = 1;
+                }
+            } else if (btnId === 'klyra-last-col-page') {
+                currentColumnPage = totalColPages;
+            }
             
             renderTable();
         });
