@@ -1,0 +1,307 @@
+.klyra-beamray-wrapper {
+    background: white;
+    padding: 0;
+    margin: 0;
+}
+
+.klyra-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    min-width: 1200px;
+    font-size: 14px;
+}
+
+.klyra-table thead {
+    background: #f8f9fa;
+}
+
+.klyra-db-table-name-row {
+    background: #e0e0e0;
+}
+
+.klyra-header-row th {
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    text-align: left;
+    font-weight: bold;
+    font-size: 12px;
+    text-transform: lowercase;
+    cursor: pointer;
+    background: #f8f9fa;
+}
+
+.klyra-table th,
+.klyra-table td {
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    text-align: left;
+}
+
+.klyra-db-table-name-row th {
+    font-weight: bold;
+    text-align: center;
+    background: #e0e0e0;
+}
+
+.klyra-table tbody tr:hover {
+    background: #f8f9fa;
+}
+
+.klyra-checkbox-cell {
+    width: 40px;
+    text-align: center;
+}
+
+.klyra-checkbox {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.klyra-editable-cell {
+    cursor: pointer;
+    min-height: 20px;
+}
+
+.klyra-editable-cell:hover {
+    background: #f0f8ff;
+    outline: 1px solid #cce7ff;
+}
+
+.klyra-loading {
+    text-align: center;
+    padding: 40px;
+    font-size: 16px;
+    color: #666;
+}
+
+.tcell_inner_wrapper_div {
+    min-height: 20px;
+}
+
+.klyra-rows-per-page-btn.active {
+    background: #3B82F6 !important;
+    color: white !important;
+    border-color: #3B82F6 !important;
+}
+
+.klyra-cols-per-page-btn.active {
+    background: #f8f782 !important;
+    color: black !important;
+}
+
+.klyra-filter-btn.active {
+    background: #0073aa !important;
+    color: white !important;
+    border-color: #0073aa !important;
+}
+
+.klyra-tool-btn {
+    width: 36px;
+    height: 36px;
+    background: #0073aa;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border-radius: 2px;
+    margin-right: 2px;
+}
+
+.klyra-tool-btn:hover {
+    background: #005a87;
+    color: white;
+    text-decoration: none;
+}
+
+.klyra-modal {
+    display: none;
+    position: fixed;
+    z-index: 999999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+}
+
+.klyra-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.klyra-modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 6px;
+    max-width: 800px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.klyra-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+}
+
+.klyra-modal-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.klyra-modal-close {
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+}
+
+.klyra-modal-close:hover {
+    color: #333;
+}
+
+.klyra-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.klyra-form-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.klyra-form-field.full-width {
+    grid-column: 1 / -1;
+}
+
+.klyra-form-label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+.klyra-form-input,
+.klyra-form-textarea,
+.klyra-form-select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.klyra-form-textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.klyra-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.klyra-modal-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.klyra-modal-btn.primary {
+    background: #0073aa;
+    color: white;
+}
+
+.klyra-modal-btn.primary:hover {
+    background: #005a87;
+}
+
+.klyra-modal-btn.secondary {
+    background: #f1f1f1;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.klyra-modal-btn.secondary:hover {
+    background: #e0e0e0;
+}
+
+.klyra-content-editor-content {
+    background: white;
+    padding: 30px;
+    border-radius: 6px;
+    width: 90%;
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+}
+
+.klyra-content-editor-header {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.klyra-content-editor-textarea {
+    width: 100%;
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    font-family: monospace;
+    font-size: 14px;
+    resize: none;
+}
+
+.klyra-content-editor-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.klyra-content-editor-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.klyra-content-editor-btn.save {
+    background: #0073aa;
+    color: white;
+}
+
+.klyra-content-editor-btn.cancel {
+    background: #f1f1f1;
+    color: #333;
+}
+
+.klyra-table td[data-status="publish"] {
+    background-color: #efddbb;
+}
+
+.klyra-table td.post-title-cell {
+    font-size: 18px;
+    font-weight: bold;
+}
