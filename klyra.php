@@ -8,6 +8,8 @@
  * License: GPL v2 or later
  */
 
+// Git subtree test comment - checking VSCode source control visibility
+
 if (!defined('ABSPATH')) {
     exit;
 }
