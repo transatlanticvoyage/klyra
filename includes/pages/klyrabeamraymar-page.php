@@ -194,7 +194,7 @@ function klyra_beamraymar_render_page() {
                 <div style="overflow-x: auto;">
                     <table id="klyra-beamray-table" class="klyra-table">
                         <thead>
-                            <tr class="klyra-db-table-name-row">
+                            <tr class="shenfur_db_table_name_tr">
                                 <th><div class="cell_inner_wrapper_div"></div></th>
                                 <th><div class="cell_inner_wrapper_div">misc</div></th>
                                 <th><div class="cell_inner_wrapper_div"><strong><?php echo esc_html($wpdb->prefix); ?>posts</strong></div></th>

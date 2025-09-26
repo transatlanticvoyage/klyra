@@ -309,12 +309,12 @@ jQuery(document).ready(function($) {
         const endColIdx = columnsPerPage === allColumns.length ? allColumns.length : startColIdx + columnsPerPage;
         const visibleColumns = allColumns.slice(startColIdx, endColIdx);
         
-        $thead.find('.klyra-db-table-name-row, .klyra-header-row').each(function() {
+        $thead.find('.shenfur_db_table_name_tr, .klyra-header-row').each(function() {
             const $row = $(this);
             $row.find('th').not(':first, :nth-child(2)').remove();
             
             visibleColumns.forEach(col => {
-                const isDbNameRow = $row.hasClass('klyra-db-table-name-row');
+                const isDbNameRow = $row.hasClass('shenfur_db_table_name_tr');
                 if (isDbNameRow) {
                     const thContent = `<div class="cell_inner_wrapper_div"><strong>wp_${col.table}</strong></div>`;
                     $row.append(`<th data-field="${col.field}">${thContent}</th>`);
