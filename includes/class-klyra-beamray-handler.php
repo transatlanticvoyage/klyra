@@ -22,6 +22,8 @@ class Klyra_Beamray_Handler {
         $search = isset($_POST['search']) ? sanitize_text_field($_POST['search']) : '';
         $post_type_filter = isset($_POST['post_type']) ? sanitize_text_field($_POST['post_type']) : '';
         $post_status_filter = isset($_POST['post_status']) ? sanitize_text_field($_POST['post_status']) : '';
+        $sort_field = isset($_POST['sort_field']) ? sanitize_text_field($_POST['sort_field']) : '';
+        $sort_order = isset($_POST['sort_order']) ? sanitize_text_field($_POST['sort_order']) : 'asc';
         
         if ($per_page === 'all') {
             $per_page = 999999;
@@ -59,6 +61,20 @@ class Klyra_Beamray_Handler {
         
         $offset = ($page - 1) * $per_page;
         
+        // Determine sort clause
+        $order_clause = 'p.post_modified DESC'; // Default sort
+        if (!empty($sort_field)) {
+            $allowed_sort_fields = array(
+                'post_title', 'ID', 'post_status', 'post_name', 'post_content',
+                'post_date', 'post_modified', 'post_author', 'post_parent', 'menu_order'
+            );
+            
+            if (in_array($sort_field, $allowed_sort_fields)) {
+                $sort_direction = strtoupper($sort_order) === 'DESC' ? 'DESC' : 'ASC';
+                $order_clause = "p.{$sort_field} {$sort_direction}";
+            }
+        }
+        
         $query = "SELECT p.ID, p.post_title, p.post_content, p.post_type, p.post_status, 
                          p.post_name, p.post_date, p.post_modified, p.post_author, 
                          p.post_parent, p.menu_order, p.comment_status, p.ping_status,
@@ -74,7 +90,7 @@ class Klyra_Beamray_Handler {
                   ) pm ON p.ID = pm.post_id
                   LEFT JOIN {$wpdb->prefix}zen_orbitposts op ON p.ID = op.rel_wp_post_id
                   WHERE {$where_sql}
-                  ORDER BY p.post_modified DESC
+                  ORDER BY {$order_clause}
                   LIMIT %d OFFSET %d";
         
         $results = $wpdb->get_results(

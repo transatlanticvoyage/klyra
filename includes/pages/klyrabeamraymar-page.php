@@ -35,6 +35,14 @@ function klyra_beamraymar_render_page() {
                             <button type="button" data-status="publish" class="klyra-status-filter-btn active" style="padding: 8px 12px; font-size: 14px; border: 1px solid #3B82F6; background: #3B82F6; color: white; margin-right: -1px; cursor: pointer;">published</button>
                             <button type="button" data-status="draft" class="klyra-status-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; border-radius: 0 6px 6px 0; cursor: pointer; background: white;">draft</button>
                         </div>
+                        <span style="font-size: 16px; font-weight: bold;">page_kennel</span>
+                        <div style="display: inline-flex; border-radius: 6px; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);">
+                            <button type="button" data-kennel="all" class="klyra-kennel-filter-btn active" style="padding: 8px 12px; font-size: 14px; border: 1px solid #3B82F6; background: #3B82F6; color: white; border-radius: 6px 0 0 0; margin-right: -1px; cursor: pointer;">all</button>
+                            <button type="button" data-kennel="home" class="klyra-kennel-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-right: -1px; cursor: pointer; background: white;">home</button>
+                            <button type="button" data-kennel="service" class="klyra-kennel-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-right: -1px; cursor: pointer; background: white;">service</button>
+                            <button type="button" data-kennel="location" class="klyra-kennel-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-right: -1px; cursor: pointer; background: white;">location</button>
+                            <button type="button" data-kennel="other" class="klyra-kennel-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; border-radius: 0 6px 6px 0; cursor: pointer; background: white;">other</button>
+                        </div>
                     </div>
                     <div style="font-size: 16px; font-weight: bold; text-transform: lowercase;">
                         <span style="font-weight: bold;"><?php echo esc_html($wpdb->prefix); ?></span>zen_sitespren.sitespren_base: <?php echo esc_html($sitespren_base ?: ''); ?>
@@ -98,8 +106,9 @@ function klyra_beamraymar_render_page() {
                                                 <div style="display: flex; align-items: center;">
                                                     <span style="font-size: 12px; color: #4B5563; margin-right: 8px;">Rows/page:</span>
                                                     <div style="display: inline-flex; border-radius: 6px; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);">
-                                                        <button type="button" data-rows="10" class="klyra-rows-per-page-btn" style="padding: 10px 8px; font-size: 14px; border: 1px solid #D1D5DB; border-radius: 6px 0 0 6px; margin-right: -1px; cursor: pointer; background: white;">10</button>
-                                                        <button type="button" data-rows="25" class="klyra-rows-per-page-btn active" style="padding: 10px 8px; font-size: 14px; border: 1px solid #3B82F6; background: #3B82F6; color: white; margin-right: -1px; cursor: pointer;">25</button>
+                                                        <button type="button" data-rows="8" class="klyra-rows-per-page-btn active" style="padding: 10px 8px; font-size: 14px; border: 1px solid #3B82F6; background: #3B82F6; color: white; border-radius: 6px 0 0 6px; margin-right: -1px; cursor: pointer;">8</button>
+                                                        <button type="button" data-rows="10" class="klyra-rows-per-page-btn" style="padding: 10px 8px; font-size: 14px; border: 1px solid #D1D5DB; margin-right: -1px; cursor: pointer; background: white;">10</button>
+                                                        <button type="button" data-rows="25" class="klyra-rows-per-page-btn" style="padding: 10px 8px; font-size: 14px; border: 1px solid #D1D5DB; margin-right: -1px; cursor: pointer; background: white;">25</button>
                                                         <button type="button" data-rows="50" class="klyra-rows-per-page-btn" style="padding: 10px 8px; font-size: 14px; border: 1px solid #D1D5DB; margin-right: -1px; cursor: pointer; background: white;">50</button>
                                                         <button type="button" data-rows="100" class="klyra-rows-per-page-btn" style="padding: 10px 8px; font-size: 14px; border: 1px solid #D1D5DB; margin-right: -1px; cursor: pointer; background: white;">100</button>
                                                         <button type="button" data-rows="200" class="klyra-rows-per-page-btn" style="padding: 10px 8px; font-size: 14px; border: 1px solid #D1D5DB; margin-right: -1px; cursor: pointer; background: white;">200</button>
@@ -183,34 +192,34 @@ function klyra_beamraymar_render_page() {
             
             <div style="background: white; border: 1px solid #ddd; border-radius: 5px; overflow: hidden;">
                 <div style="overflow-x: auto;">
-                    <table id="klyra-beamray-table" class="klyra-table">
+                    <table id="klyra-beamray-table">
                         <thead>
-                            <tr class="klyra-db-table-name-row">
-                                <th><div class="tcell_inner_wrapper_div"></div></th>
-                                <th><div class="tcell_inner_wrapper_div">misc</div></th>
-                                <th><div class="tcell_inner_wrapper_div"><strong><?php echo esc_html($wpdb->prefix); ?>posts</strong></div></th>
-                                <th><div class="tcell_inner_wrapper_div"><strong><?php echo esc_html($wpdb->prefix); ?>posts</strong></div></th>
-                                <th><div class="tcell_inner_wrapper_div"><strong><?php echo esc_html($wpdb->prefix); ?>posts</strong></div></th>
-                                <th><div class="tcell_inner_wrapper_div"><strong><?php echo esc_html($wpdb->prefix); ?>posts</strong></div></th>
-                                <th><div class="tcell_inner_wrapper_div"><strong><?php echo esc_html($wpdb->prefix); ?>posts</strong></div></th>
-                                <th><div class="tcell_inner_wrapper_div"><strong><?php echo esc_html($wpdb->prefix); ?>postmeta</strong></div></th>
+                            <tr class="shenfur_db_table_name_tr">
+                                <th class="for_db_table_checkbox"><div class="cell_inner_wrapper_div for_db_table_checkbox"></div></th>
+                                <th class="for_db_table_misc"><div class="cell_inner_wrapper_div for_db_table_misc">misc</div></th>
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong><?php echo esc_html($wpdb->prefix); ?>posts</strong></div></th>
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong><?php echo esc_html($wpdb->prefix); ?>posts</strong></div></th>
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong><?php echo esc_html($wpdb->prefix); ?>posts</strong></div></th>
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong><?php echo esc_html($wpdb->prefix); ?>posts</strong></div></th>
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong><?php echo esc_html($wpdb->prefix); ?>posts</strong></div></th>
+                                <th class="for_db_table_wp_postmeta"><div class="cell_inner_wrapper_div for_db_table_wp_postmeta"><strong><?php echo esc_html($wpdb->prefix); ?>postmeta</strong></div></th>
                             </tr>
-                            <tr class="klyra-header-row">
-                                <th class="klyra-checkbox-cell">
-                                    <div class="tcell_inner_wrapper_div"><input type="checkbox" id="klyra-select-all" class="klyra-checkbox"></div>
+                            <tr>
+                                <th class="for_db_table_checkbox">
+                                    <div class="cell_inner_wrapper_div for_db_table_checkbox"><input type="checkbox" id="klyra-select-all"></div>
                                 </th>
-                                <th><div class="tcell_inner_wrapper_div">tool_buttons</div></th>
-                                <th data-field="ID"><div class="tcell_inner_wrapper_div">id</div></th>
-                                <th data-field="post_status"><div class="tcell_inner_wrapper_div">post_status</div></th>
-                                <th data-field="post_title"><div class="tcell_inner_wrapper_div">post_title</div></th>
-                                <th data-field="post_name"><div class="tcell_inner_wrapper_div">post_name</div></th>
-                                <th data-field="post_content"><div class="tcell_inner_wrapper_div">post_content</div></th>
-                                <th data-field="_elementor_data"><div class="tcell_inner_wrapper_div">_elementor_data</div></th>
+                                <th class="for_db_table_misc"><div class="cell_inner_wrapper_div for_db_table_misc">tool_buttons</div></th>
+                                <th class="for_db_table_wp_posts" data-field="ID"><div class="cell_inner_wrapper_div for_db_table_wp_posts">id</div></th>
+                                <th class="for_db_table_wp_posts" data-field="post_status"><div class="cell_inner_wrapper_div for_db_table_wp_posts">post_status</div></th>
+                                <th class="for_db_table_wp_posts sortable-column" data-field="post_title" style="cursor: pointer; user-select: none;"><div class="cell_inner_wrapper_div for_db_table_wp_posts">post_title <span class="sort-indicator"></span></div></th>
+                                <th class="for_db_table_wp_posts" data-field="post_name"><div class="cell_inner_wrapper_div for_db_table_wp_posts">post_name</div></th>
+                                <th class="for_db_table_wp_posts" data-field="post_content"><div class="cell_inner_wrapper_div for_db_table_wp_posts">post_content</div></th>
+                                <th class="for_db_table_wp_postmeta" data-field="_elementor_data"><div class="cell_inner_wrapper_div for_db_table_wp_postmeta">_elementor_data</div></th>
                             </tr>
                         </thead>
                         <tbody id="klyra-beamray-tbody">
                             <tr>
-                                <td colspan="8" class="klyra-loading">Loading data...</td>
+                                <td colspan="8">Loading data...</td>
                             </tr>
                         </tbody>
                     </table>
