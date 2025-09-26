@@ -192,34 +192,34 @@ function klyra_beamraymar_render_page() {
             
             <div style="background: white; border: 1px solid #ddd; border-radius: 5px; overflow: hidden;">
                 <div style="overflow-x: auto;">
-                    <table id="klyra-beamray-table">
+                    <table id="klyra-beamray-table" class="klyra-table">
                         <thead>
-                            <tr class="shenfur_db_table_name_tr">
-                                <th class="for_db_table_checkbox"><div class="cell_inner_wrapper_div for_db_table_checkbox"></div></th>
-                                <th class="for_db_table_misc"><div class="cell_inner_wrapper_div for_db_table_misc">misc</div></th>
-                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong><?php echo esc_html($wpdb->prefix); ?>posts</strong></div></th>
-                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong><?php echo esc_html($wpdb->prefix); ?>posts</strong></div></th>
-                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong><?php echo esc_html($wpdb->prefix); ?>posts</strong></div></th>
-                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong><?php echo esc_html($wpdb->prefix); ?>posts</strong></div></th>
-                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong><?php echo esc_html($wpdb->prefix); ?>posts</strong></div></th>
-                                <th class="for_db_table_wp_postmeta"><div class="cell_inner_wrapper_div for_db_table_wp_postmeta"><strong><?php echo esc_html($wpdb->prefix); ?>postmeta</strong></div></th>
+                            <tr class="klyra-db-table-name-row">
+                                <th><div class="cell_inner_wrapper_div"></div></th>
+                                <th><div class="cell_inner_wrapper_div">misc</div></th>
+                                <th><div class="cell_inner_wrapper_div"><strong><?php echo esc_html($wpdb->prefix); ?>posts</strong></div></th>
+                                <th><div class="cell_inner_wrapper_div"><strong><?php echo esc_html($wpdb->prefix); ?>posts</strong></div></th>
+                                <th><div class="cell_inner_wrapper_div"><strong><?php echo esc_html($wpdb->prefix); ?>posts</strong></div></th>
+                                <th><div class="cell_inner_wrapper_div"><strong><?php echo esc_html($wpdb->prefix); ?>posts</strong></div></th>
+                                <th><div class="cell_inner_wrapper_div"><strong><?php echo esc_html($wpdb->prefix); ?>posts</strong></div></th>
+                                <th><div class="cell_inner_wrapper_div"><strong><?php echo esc_html($wpdb->prefix); ?>postmeta</strong></div></th>
                             </tr>
-                            <tr>
-                                <th class="for_db_table_checkbox">
-                                    <div class="cell_inner_wrapper_div for_db_table_checkbox"><input type="checkbox" id="klyra-select-all"></div>
+                            <tr class="klyra-header-row">
+                                <th class="klyra-checkbox-cell">
+                                    <div class="cell_inner_wrapper_div"><input type="checkbox" id="klyra-select-all" class="klyra-checkbox"></div>
                                 </th>
-                                <th class="for_db_table_misc"><div class="cell_inner_wrapper_div for_db_table_misc">tool_buttons</div></th>
-                                <th class="for_db_table_wp_posts" data-field="ID"><div class="cell_inner_wrapper_div for_db_table_wp_posts">id</div></th>
-                                <th class="for_db_table_wp_posts" data-field="post_status"><div class="cell_inner_wrapper_div for_db_table_wp_posts">post_status</div></th>
-                                <th class="for_db_table_wp_posts sortable-column" data-field="post_title" style="cursor: pointer; user-select: none;"><div class="cell_inner_wrapper_div for_db_table_wp_posts">post_title <span class="sort-indicator"></span></div></th>
-                                <th class="for_db_table_wp_posts" data-field="post_name"><div class="cell_inner_wrapper_div for_db_table_wp_posts">post_name</div></th>
-                                <th class="for_db_table_wp_posts" data-field="post_content"><div class="cell_inner_wrapper_div for_db_table_wp_posts">post_content</div></th>
-                                <th class="for_db_table_wp_postmeta" data-field="_elementor_data"><div class="cell_inner_wrapper_div for_db_table_wp_postmeta">_elementor_data</div></th>
+                                <th><div class="cell_inner_wrapper_div">tool_buttons</div></th>
+                                <th data-field="ID"><div class="cell_inner_wrapper_div">id</div></th>
+                                <th data-field="post_status"><div class="cell_inner_wrapper_div">post_status</div></th>
+                                <th data-field="post_title" class="klyra-sortable-column" style="cursor: pointer; user-select: none;"><div class="cell_inner_wrapper_div">post_title <span class="klyra-sort-indicator"></span></div></th>
+                                <th data-field="post_name"><div class="cell_inner_wrapper_div">post_name</div></th>
+                                <th data-field="post_content"><div class="cell_inner_wrapper_div">post_content</div></th>
+                                <th data-field="_elementor_data"><div class="cell_inner_wrapper_div">_elementor_data</div></th>
                             </tr>
                         </thead>
                         <tbody id="klyra-beamray-tbody">
                             <tr>
-                                <td colspan="8">Loading data...</td>
+                                <td colspan="8" class="klyra-loading">Loading data...</td>
                             </tr>
                         </tbody>
                     </table>
