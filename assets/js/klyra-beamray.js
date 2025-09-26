@@ -17,6 +17,7 @@ jQuery(document).ready(function($) {
     let sortField = '';
     let sortOrder = 'asc';
     let showPostStatusColumn = true; // Toggle state for post_status column
+    let showComboTitleNameColumn = true; // Toggle state for combo_title_name column
     let showPostTitleColumn = true; // Toggle state for post_title column
     let showPostNameColumn = true; // Toggle state for post_name column
     
@@ -151,6 +152,7 @@ jQuery(document).ready(function($) {
             // Calculate total pages excluding wolf exclusion band columns (same as applyColumnPagination)
             let wolfBandColumnCount = 3; // checkbox, tool_buttons, id (always shown)
             if (showPostStatusColumn) wolfBandColumnCount++;
+            if (showComboTitleNameColumn) wolfBandColumnCount++;
             if (showPostTitleColumn) wolfBandColumnCount++;
             if (showPostNameColumn) wolfBandColumnCount++;
             
@@ -193,6 +195,19 @@ jQuery(document).ready(function($) {
             showPostStatusColumn = !showPostStatusColumn;
             
             if (showPostStatusColumn) {
+                $(this).removeClass('off');
+            } else {
+                $(this).addClass('off');
+            }
+            
+            renderTable();
+        });
+        
+        // Combo Title Name Column Toggle Handler
+        $('#combo-title-name-toggle').on('click', function() {
+            showComboTitleNameColumn = !showComboTitleNameColumn;
+            
+            if (showComboTitleNameColumn) {
                 $(this).removeClass('off');
             } else {
                 $(this).addClass('off');
@@ -465,7 +480,7 @@ jQuery(document).ready(function($) {
             
             // Add optional wolf band columns based on toggle state
             if (showPostStatusColumn) wolfBandIndices.push(3); // post_status
-            wolfBandIndices.push(4); // combo_title_name (always shown when in wolf band)
+            if (showComboTitleNameColumn) wolfBandIndices.push(4); // combo_title_name
             if (showPostTitleColumn) wolfBandIndices.push(5); // post_title  
             if (showPostNameColumn) wolfBandIndices.push(6); // post_name
             
@@ -480,6 +495,7 @@ jQuery(document).ready(function($) {
                 $(this).find('th').each(function(index) {
                     // Special handling for optional wolf band columns
                     if ((index === 3 && !showPostStatusColumn) || 
+                        (index === 4 && !showComboTitleNameColumn) ||
                         (index === 5 && !showPostTitleColumn) || 
                         (index === 6 && !showPostNameColumn)) {
                         $(this).hide().removeClass('wolf-exclusion-band');
@@ -498,6 +514,7 @@ jQuery(document).ready(function($) {
                 $(this).find('td').each(function(index) {
                     // Special handling for optional wolf band columns
                     if ((index === 3 && !showPostStatusColumn) || 
+                        (index === 4 && !showComboTitleNameColumn) ||
                         (index === 5 && !showPostTitleColumn) || 
                         (index === 6 && !showPostNameColumn)) {
                         $(this).hide().removeClass('wolf-exclusion-band');
@@ -516,7 +533,7 @@ jQuery(document).ready(function($) {
             
             // Add optional wolf band columns based on toggle state
             if (showPostStatusColumn) wolfBandIndices.push(3); // post_status
-            wolfBandIndices.push(4); // combo_title_name (always shown when in wolf band)
+            if (showComboTitleNameColumn) wolfBandIndices.push(4); // combo_title_name
             if (showPostTitleColumn) wolfBandIndices.push(5); // post_title  
             if (showPostNameColumn) wolfBandIndices.push(6); // post_name
             
@@ -525,6 +542,7 @@ jQuery(document).ready(function($) {
                 $(this).find('th').each(function(index) {
                     // Special handling for optional wolf band columns
                     if ((index === 3 && !showPostStatusColumn) || 
+                        (index === 4 && !showComboTitleNameColumn) ||
                         (index === 5 && !showPostTitleColumn) || 
                         (index === 6 && !showPostNameColumn)) {
                         $(this).hide().removeClass('wolf-exclusion-band');
@@ -544,6 +562,7 @@ jQuery(document).ready(function($) {
                 $(this).find('td').each(function(index) {
                     // Special handling for optional wolf band columns
                     if ((index === 3 && !showPostStatusColumn) || 
+                        (index === 4 && !showComboTitleNameColumn) ||
                         (index === 5 && !showPostTitleColumn) || 
                         (index === 6 && !showPostNameColumn)) {
                         $(this).hide().removeClass('wolf-exclusion-band');

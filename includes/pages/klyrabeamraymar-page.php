@@ -73,6 +73,14 @@ function klyra_beamraymar_render_page() {
                         <span style="font-size: 16px; font-weight: bold;">show post_status column</span>
                     </div>
                     
+                    <!-- Combo Title Name Toggle Switch -->
+                    <div style="display: flex; align-items: center; gap: 8px; margin-left: 20px;">
+                        <div class="klyra-toggle-switch" id="combo-title-name-toggle" style="position: relative; width: 50px; height: 24px; background: #4CAF50; border-radius: 12px; cursor: pointer; transition: background 0.3s;">
+                            <div class="klyra-toggle-knob" style="position: absolute; top: 2px; right: 2px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: all 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.2);"></div>
+                        </div>
+                        <span style="font-size: 16px; font-weight: bold;">combo title name</span>
+                    </div>
+                    
                     <!-- Post Title Toggle Switch -->
                     <div style="display: flex; align-items: center; gap: 8px; margin-left: 20px;">
                         <div class="klyra-toggle-switch" id="post-title-toggle" style="position: relative; width: 50px; height: 24px; background: #4CAF50; border-radius: 12px; cursor: pointer; transition: background 0.3s;">
