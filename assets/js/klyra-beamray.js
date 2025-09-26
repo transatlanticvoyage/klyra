@@ -9,7 +9,9 @@ jQuery(document).ready(function($) {
     let currentData = [];
     let activeFilters = {
         post_type: '',
-        post_status: 'publish'  // Default to published posts
+        post_status: 'publish',  // Default to published posts
+        service_assignment: 'all',  // Default to showing all posts
+        icepick_filter: ''  // Default to no icepick filter
     };
     let currentColumnPage = 1;
     let columnsPerPage = 8;
@@ -131,6 +133,56 @@ jQuery(document).ready(function($) {
             
             // Update filter
             activeFilters.post_status = statusValue === 'all' ? '' : statusValue;
+            
+            currentPage = 1;
+            loadData();
+        });
+        
+        // Service Assignment Filter Handler
+        $('.klyra-service-filter-btn').on('click', function() {
+            const filterValue = $(this).data('filter');
+            
+            // Remove active class from all service filter buttons
+            $('.klyra-service-filter-btn').removeClass('active').css({
+                'background': 'white',
+                'color': '#333',
+                'border-color': '#D1D5DB'
+            });
+            
+            // Add active class to clicked button
+            $(this).addClass('active').css({
+                'background': '#3B82F6',
+                'color': 'white',
+                'border-color': '#3B82F6'
+            });
+            
+            // Update filter
+            activeFilters.service_assignment = filterValue;
+            
+            currentPage = 1;
+            loadData();
+        });
+        
+        // Icepick Filter Handler
+        $('.klyra-icepick-filter-btn').on('click', function() {
+            const filterValue = $(this).data('icepick');
+            
+            // Remove active class from all icepick filter buttons
+            $('.klyra-icepick-filter-btn').removeClass('active').css({
+                'background': 'white',
+                'color': '#333',
+                'border-color': '#D1D5DB'
+            });
+            
+            // Add active class to clicked button
+            $(this).addClass('active').css({
+                'background': '#3B82F6',
+                'color': 'white',
+                'border-color': '#3B82F6'
+            });
+            
+            // Update filter
+            activeFilters.icepick_filter = filterValue;
             
             currentPage = 1;
             loadData();
@@ -376,6 +428,8 @@ jQuery(document).ready(function($) {
                 search: currentSearch,
                 post_type: activeFilters.post_type,
                 post_status: activeFilters.post_status,
+                service_assignment: activeFilters.service_assignment,
+                icepick_filter: activeFilters.icepick_filter,
                 sort_field: sortField,
                 sort_order: sortOrder
             },

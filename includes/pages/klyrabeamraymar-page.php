@@ -28,9 +28,15 @@ function klyra_beamraymar_render_page() {
                     <span style="font-size: 16px; font-weight: bold;">protozoic_chamber</span>
                     <span style="font-size: 16px; font-weight: bold;">assigned service page</span>
                     <div style="display: flex; gap: 0;">
-                        <button type="button" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; background: white; cursor: pointer;">all</button>
-                        <button type="button" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: -1px; background: white; cursor: pointer;">assigned only</button>
-                        <button type="button" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: -1px; background: white; cursor: pointer;">non-assigned only</button>
+                        <button type="button" data-filter="all" class="klyra-service-filter-btn active" style="padding: 8px 12px; font-size: 14px; border: 1px solid #3B82F6; background: #3B82F6; color: white; cursor: pointer;">all</button>
+                        <button type="button" data-filter="assigned" class="klyra-service-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: -1px; background: white; cursor: pointer;">assigned only</button>
+                        <button type="button" data-filter="non-assigned" class="klyra-service-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: -1px; background: white; cursor: pointer;">non-assigned only</button>
+                    </div>
+                    <span style="font-size: 16px; font-weight: bold;">icepick:</span>
+                    <div style="display: flex; gap: 0;">
+                        <button type="button" data-icepick="home" class="klyra-icepick-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; background: white; cursor: pointer;">home</button>
+                        <button type="button" data-icepick="blog" class="klyra-icepick-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: -1px; background: white; cursor: pointer;">blog</button>
+                        <button type="button" data-icepick="others" class="klyra-icepick-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: -1px; background: white; cursor: pointer;">others</button>
                     </div>
                 </div>
             </div>

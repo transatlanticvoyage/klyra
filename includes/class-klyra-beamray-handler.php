@@ -22,6 +22,8 @@ class Klyra_Beamray_Handler {
         $search = isset($_POST['search']) ? sanitize_text_field($_POST['search']) : '';
         $post_type_filter = isset($_POST['post_type']) ? sanitize_text_field($_POST['post_type']) : '';
         $post_status_filter = isset($_POST['post_status']) ? sanitize_text_field($_POST['post_status']) : '';
+        $service_assignment_filter = isset($_POST['service_assignment']) ? sanitize_text_field($_POST['service_assignment']) : 'all';
+        $icepick_filter = isset($_POST['icepick_filter']) ? sanitize_text_field($_POST['icepick_filter']) : '';
         $sort_field = isset($_POST['sort_field']) ? sanitize_text_field($_POST['sort_field']) : '';
         $sort_order = isset($_POST['sort_order']) ? sanitize_text_field($_POST['sort_order']) : 'asc';
         
@@ -49,6 +51,48 @@ class Klyra_Beamray_Handler {
                 "(p.post_title LIKE %s OR p.post_content LIKE %s OR p.post_name LIKE %s)",
                 $like, $like, $like
             );
+        }
+        
+        // Handle service assignment filter
+        if ($service_assignment_filter === 'assigned') {
+            $where_clauses[] = "p.ID IN (SELECT asn_service_page_id FROM {$wpdb->prefix}zen_services WHERE asn_service_page_id IS NOT NULL)";
+        } elseif ($service_assignment_filter === 'non-assigned') {
+            $where_clauses[] = "p.ID NOT IN (SELECT asn_service_page_id FROM {$wpdb->prefix}zen_services WHERE asn_service_page_id IS NOT NULL)";
+        }
+        // For 'all', no additional filter is applied
+        
+        // Handle icepick filter (home/blog/others)
+        if (!empty($icepick_filter)) {
+            $front_page_id = get_option('page_on_front');
+            $posts_page_id = get_option('page_for_posts');
+            
+            if ($icepick_filter === 'home') {
+                // Show only the front page
+                if ($front_page_id) {
+                    $where_clauses[] = $wpdb->prepare("p.ID = %d", $front_page_id);
+                } else {
+                    // If no front page is set, show no results
+                    $where_clauses[] = "p.ID = 0";
+                }
+            } elseif ($icepick_filter === 'blog') {
+                // Show only the posts page
+                if ($posts_page_id) {
+                    $where_clauses[] = $wpdb->prepare("p.ID = %d", $posts_page_id);
+                } else {
+                    // If no posts page is set, show no results
+                    $where_clauses[] = "p.ID = 0";
+                }
+            } elseif ($icepick_filter === 'others') {
+                // Show all pages except home and blog
+                $exclude_ids = array();
+                if ($front_page_id) $exclude_ids[] = $front_page_id;
+                if ($posts_page_id) $exclude_ids[] = $posts_page_id;
+                
+                if (!empty($exclude_ids)) {
+                    $exclude_placeholders = implode(',', array_fill(0, count($exclude_ids), '%d'));
+                    $where_clauses[] = $wpdb->prepare("p.ID NOT IN ($exclude_placeholders)", $exclude_ids);
+                }
+            }
         }
         
         $where_sql = implode(' AND ', $where_clauses);
