@@ -18,31 +18,31 @@ jQuery(document).ready(function($) {
     let sortOrder = 'asc';
     
     const allColumns = [
-        {field: 'ID', label: 'id', table: 'posts'},
-        {field: 'post_status', label: 'post_status', table: 'posts', editable: true},
-        {field: 'post_title', label: 'post_title', table: 'posts', editable: true},
-        {field: 'post_name', label: 'post_name', table: 'posts', editable: true},
-        {field: 'post_content', label: 'post_content', table: 'posts', special: 'content'},
-        {field: '_elementor_data', label: '_elementor_data', table: 'postmeta', special: 'elementor'},
-        {field: 'post_type', label: 'post_type', table: 'posts', editable: true},
-        {field: 'post_date', label: 'post_date', table: 'posts'},
-        {field: 'post_modified', label: 'post_modified', table: 'posts'},
-        {field: 'post_author', label: 'post_author', table: 'posts', editable: true},
-        {field: 'post_parent', label: 'post_parent', table: 'posts', editable: true},
-        {field: 'menu_order', label: 'menu_order', table: 'posts', editable: true},
-        {field: 'comment_status', label: 'comment_status', table: 'posts', editable: true},
-        {field: 'ping_status', label: 'ping_status', table: 'posts', editable: true},
-        {field: 'rel_wp_post_id', label: 'rel_wp_post_id', table: 'zen_orbitposts'},
-        {field: 'orbitpost_id', label: 'orbitpost_id', table: 'zen_orbitposts'},
-        {field: 'redshift_datum', label: 'redshift_datum', table: 'zen_orbitposts'},
-        {field: 'rover_datum', label: 'rover_datum', table: 'zen_orbitposts'},
-        {field: 'hudson_imgplanbatch_id', label: 'hudson_imgplanbatch_id', table: 'zen_orbitposts'},
-        {field: 'is_pinned', label: 'is_pinned', table: 'zen_orbitposts'},
-        {field: 'is_flagged', label: 'is_flagged', table: 'zen_orbitposts'},
-        {field: 'is_starred', label: 'is_starred', table: 'zen_orbitposts'},
-        {field: 'is_squared', label: 'is_squared', table: 'zen_orbitposts'},
-        {field: 'created_at', label: 'created_at', table: 'zen_orbitposts'},
-        {field: 'updated_at', label: 'updated_at', table: 'zen_orbitposts'}
+        {field: 'ID', label: 'id', table: 'wp_posts'},
+        {field: 'post_status', label: 'post_status', table: 'wp_posts', editable: true},
+        {field: 'post_title', label: 'post_title', table: 'wp_posts', editable: true},
+        {field: 'post_name', label: 'post_name', table: 'wp_posts', editable: true},
+        {field: 'post_content', label: 'post_content', table: 'wp_posts', special: 'content'},
+        {field: '_elementor_data', label: '_elementor_data', table: 'wp_postmeta', special: 'elementor'},
+        {field: 'post_type', label: 'post_type', table: 'wp_posts', editable: true},
+        {field: 'post_date', label: 'post_date', table: 'wp_posts'},
+        {field: 'post_modified', label: 'post_modified', table: 'wp_posts'},
+        {field: 'post_author', label: 'post_author', table: 'wp_posts', editable: true},
+        {field: 'post_parent', label: 'post_parent', table: 'wp_posts', editable: true},
+        {field: 'menu_order', label: 'menu_order', table: 'wp_posts', editable: true},
+        {field: 'comment_status', label: 'comment_status', table: 'wp_posts', editable: true},
+        {field: 'ping_status', label: 'ping_status', table: 'wp_posts', editable: true},
+        {field: 'rel_wp_post_id', label: 'rel_wp_post_id', table: 'wp_zen_orbitposts'},
+        {field: 'orbitpost_id', label: 'orbitpost_id', table: 'wp_zen_orbitposts'},
+        {field: 'redshift_datum', label: 'redshift_datum', table: 'wp_zen_orbitposts'},
+        {field: 'rover_datum', label: 'rover_datum', table: 'wp_zen_orbitposts'},
+        {field: 'hudson_imgplanbatch_id', label: 'hudson_imgplanbatch_id', table: 'wp_zen_orbitposts'},
+        {field: 'is_pinned', label: 'is_pinned', table: 'wp_zen_orbitposts'},
+        {field: 'is_flagged', label: 'is_flagged', table: 'wp_zen_orbitposts'},
+        {field: 'is_starred', label: 'is_starred', table: 'wp_zen_orbitposts'},
+        {field: 'is_squared', label: 'is_squared', table: 'wp_zen_orbitposts'},
+        {field: 'created_at', label: 'created_at', table: 'wp_zen_orbitposts'},
+        {field: 'updated_at', label: 'updated_at', table: 'wp_zen_orbitposts'}
     ];
     
     init();
@@ -315,10 +315,10 @@ jQuery(document).ready(function($) {
             
             visibleColumns.forEach(col => {
                 const isDbNameRow = $row.hasClass('shenfur_db_table_name_tr');
-                const dbTableClass = `for_db_table_${col.table.replace('wp_', 'wp_')}`;
+                const dbTableClass = `for_db_table_${col.table}`;
                 
                 if (isDbNameRow) {
-                    const thContent = `<div class="cell_inner_wrapper_div ${dbTableClass}"><strong>wp_${col.table}</strong></div>`;
+                    const thContent = `<div class="cell_inner_wrapper_div ${dbTableClass}"><strong>${col.table}</strong></div>`;
                     $row.append(`<th class="${dbTableClass}" data-field="${col.field}">${thContent}</th>`);
                 } else {
                     // For header row, add sorting functionality to post_title
@@ -369,7 +369,7 @@ jQuery(document).ready(function($) {
             
             visibleColumns.forEach(col => {
                 let cellValue = post[col.field] || '';
-                const dbTableClass = `for_db_table_${col.table.replace('wp_', 'wp_')}`;
+                const dbTableClass = `for_db_table_${col.table}`;
                 let cellClass = dbTableClass;
                 let cellAttrs = '';
                 

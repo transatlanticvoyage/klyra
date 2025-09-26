@@ -21,7 +21,10 @@ function klyra_beamraymar_render_page() {
         <div style="height: 20px;"></div>
         
         <div style="padding: 20px;">
-            <h1 style="margin-bottom: 20px;">Klyra BeamRay Table</h1>
+            <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                <img src="<?php echo KLYRA_PLUGIN_URL . 'klyra-shenzi-asset-mirror/beamraymar-logo-1.png'; ?>" alt="BeamRaymar Logo" style="height: 70px; width: auto; margin-right: 15px;">
+                <h1 style="margin: 0;">Klyra BeamRay Table</h1>
+            </div>
             
             <div style="background: white; border: 1px solid #ddd; padding: 15px; margin-bottom: 20px; border-radius: 5px;">
                 <div style="display: flex; align-items: center; gap: 10px; justify-content: space-between;">
