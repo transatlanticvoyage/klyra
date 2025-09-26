@@ -301,51 +301,20 @@ jQuery(document).ready(function($) {
     
     function renderTable() {
         const $tbody = $('#klyra-beamray-tbody');
-        const $thead = $('#klyra-beamray-table thead');
         $tbody.empty();
         
-        const totalColPages = Math.ceil(allColumns.length / columnsPerPage);
-        const startColIdx = (currentColumnPage - 1) * columnsPerPage;
-        const endColIdx = columnsPerPage === allColumns.length ? allColumns.length : startColIdx + columnsPerPage;
-        const visibleColumns = allColumns.slice(startColIdx, endColIdx);
-        
-        $thead.find('.shenfur_db_table_name_tr, .klyra-header-row').each(function() {
-            const $row = $(this);
-            $row.find('th').not(':first, :nth-child(2)').remove();
-            
-            visibleColumns.forEach(col => {
-                const isDbNameRow = $row.hasClass('shenfur_db_table_name_tr');
-                const dbTableClass = `for_db_table_${col.table}`;
-                
-                if (isDbNameRow) {
-                    const thContent = `<div class="cell_inner_wrapper_div ${dbTableClass}"><strong>${col.table}</strong></div>`;
-                    $row.append(`<th class="${dbTableClass}" data-field="${col.field}">${thContent}</th>`);
-                } else {
-                    // For header row, add sorting functionality to post_title
-                    if (col.field === 'post_title') {
-                        const sortIndicator = (sortField === 'post_title') ? (sortOrder === 'asc' ? ' ↑' : ' ↓') : '';
-                        const thContent = `<div class="cell_inner_wrapper_div ${dbTableClass}">${col.label} <span class="klyra-sort-indicator">${sortIndicator}</span></div>`;
-                        $row.append(`<th class="${dbTableClass} klyra-sortable-column" data-field="${col.field}" style="cursor: pointer; user-select: none;">${thContent}</th>`);
-                    } else {
-                        const thContent = `<div class="cell_inner_wrapper_div ${dbTableClass}">${col.label}</div>`;
-                        $row.append(`<th class="${dbTableClass}" data-field="${col.field}">${thContent}</th>`);
-                    }
-                }
-            });
-        });
-        
-        $('#klyra-current-col-page').text(currentColumnPage);
-        $('#klyra-total-col-pages').text(totalColPages);
-        $('#klyra-columns-showing').text(visibleColumns.length);
+        // Apply column pagination using show/hide
+        applyColumnPagination();
         
         if (currentData.length === 0) {
-            $tbody.html('<tr><td colspan="' + (visibleColumns.length + 2) + '" class="klyra-loading">No posts or pages found.</td></tr>');
+            $tbody.html('<tr><td colspan="30" class="klyra-loading">No posts or pages found.</td></tr>');
             return;
         }
         
         currentData.forEach(post => {
             const $tr = $('<tr></tr>').attr('data-post-id', post.ID);
             
+            // Fixed columns: checkbox + tool_buttons
             $tr.append(`
                 <td class="klyra-checkbox-cell for_db_table_checkbox">
                     <div class="cell_inner_wrapper_div for_db_table_checkbox">
@@ -367,7 +336,8 @@ jQuery(document).ready(function($) {
                 </td>
             `);
             
-            visibleColumns.forEach(col => {
+            // All data columns in order matching the header
+            allColumns.forEach(col => {
                 let cellValue = post[col.field] || '';
                 const dbTableClass = `for_db_table_${col.table}`;
                 let cellClass = dbTableClass;
@@ -389,7 +359,7 @@ jQuery(document).ready(function($) {
                 if (col.special === 'content') {
                     const preview = stripTags(cellValue).substring(0, 50) + '...';
                     $tr.append(`
-                        <td class="${cellClass}" ${cellAttrs}>
+                        <td class="${cellClass}" ${cellAttrs} data-field="${col.field}">
                             <div class="cell_inner_wrapper_div ${dbTableClass}">
                                 ${preview}
                                 <button class="klyra-content-edit-btn" data-id="${post.ID}" style="width: 20px; height: 20px; background: #0073aa; color: white; border: none; cursor: pointer; font-size: 10px; font-weight: bold; float: right; margin-left: 8px;">ED</button>
@@ -423,6 +393,53 @@ jQuery(document).ready(function($) {
             currentPage = 1;
             loadData();
         });
+    }
+    
+    // Column pagination using show/hide approach like Grove
+    function applyColumnPagination() {
+        if (columnsPerPage !== allColumns.length) {
+            // Calculate visible column range (starts after fixed columns)
+            const fixedColumnCount = 2; // checkbox + tool_buttons
+            const startCol = fixedColumnCount + (currentColumnPage - 1) * columnsPerPage;
+            const endCol = startCol + columnsPerPage - 1;
+            
+            // Apply to each header row separately
+            $('#klyra-beamray-table thead tr').each(function() {
+                $(this).find('th').each(function(index) {
+                    if (index < fixedColumnCount) {
+                        $(this).show(); // Always show fixed columns
+                    } else if (index >= startCol && index <= endCol) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+            
+            // Apply same logic to all data rows
+            $('#klyra-beamray-table tbody tr').each(function() {
+                $(this).find('td').each(function(index) {
+                    if (index < fixedColumnCount) {
+                        $(this).show(); // Always show fixed columns
+                    } else if (index >= startCol && index <= endCol) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+        } else {
+            // "All" option: Show all columns
+            $('#klyra-beamray-table thead tr th, #klyra-beamray-table tbody tr td').show();
+        }
+        
+        // Update pagination displays
+        const totalColPages = Math.ceil(allColumns.length / columnsPerPage);
+        const visibleColumnCount = columnsPerPage === allColumns.length ? allColumns.length : columnsPerPage;
+        
+        $('#klyra-current-col-page').text(currentColumnPage);
+        $('#klyra-total-col-pages').text(totalColPages);
+        $('#klyra-columns-showing').text(visibleColumnCount);
     }
     
     function updatePaginationInfo() {

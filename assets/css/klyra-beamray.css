@@ -5,11 +5,11 @@
 }
 
 .klyra-table {
-    width: 100%;
+    width: auto;
     border-collapse: collapse;
     border: 1px solid #ddd;
-    min-width: 1200px;
     font-size: 14px;
+    display: inline-table;
 }
 
 .klyra-table thead {
@@ -33,6 +33,7 @@
     border: 1px solid #ddd;
     padding: 8px 12px;
     text-align: left;
+    white-space: nowrap;
 }
 
 

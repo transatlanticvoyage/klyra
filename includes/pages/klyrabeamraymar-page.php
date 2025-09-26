@@ -200,29 +200,74 @@ function klyra_beamraymar_render_page() {
                             <tr class="shenfur_db_table_name_tr">
                                 <th class="for_db_table_checkbox"><div class="cell_inner_wrapper_div for_db_table_checkbox"></div></th>
                                 <th class="for_db_table_misc"><div class="cell_inner_wrapper_div for_db_table_misc">misc</div></th>
-                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong><?php echo esc_html($wpdb->prefix); ?>posts</strong></div></th>
-                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong><?php echo esc_html($wpdb->prefix); ?>posts</strong></div></th>
-                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong><?php echo esc_html($wpdb->prefix); ?>posts</strong></div></th>
-                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong><?php echo esc_html($wpdb->prefix); ?>posts</strong></div></th>
-                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong><?php echo esc_html($wpdb->prefix); ?>posts</strong></div></th>
-                                <th class="for_db_table_wp_postmeta"><div class="cell_inner_wrapper_div for_db_table_wp_postmeta"><strong><?php echo esc_html($wpdb->prefix); ?>postmeta</strong></div></th>
+                                <!-- wp_posts columns -->
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong>wp_posts</strong></div></th>
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong>wp_posts</strong></div></th>
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong>wp_posts</strong></div></th>
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong>wp_posts</strong></div></th>
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong>wp_posts</strong></div></th>
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong>wp_posts</strong></div></th>
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong>wp_posts</strong></div></th>
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong>wp_posts</strong></div></th>
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong>wp_posts</strong></div></th>
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong>wp_posts</strong></div></th>
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong>wp_posts</strong></div></th>
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong>wp_posts</strong></div></th>
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong>wp_posts</strong></div></th>
+                                <!-- wp_postmeta column -->
+                                <th class="for_db_table_wp_postmeta"><div class="cell_inner_wrapper_div for_db_table_wp_postmeta"><strong>wp_postmeta</strong></div></th>
+                                <!-- wp_zen_orbitposts columns -->
+                                <th class="for_db_table_wp_zen_orbitposts"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts"><strong>wp_zen_orbitposts</strong></div></th>
+                                <th class="for_db_table_wp_zen_orbitposts"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts"><strong>wp_zen_orbitposts</strong></div></th>
+                                <th class="for_db_table_wp_zen_orbitposts"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts"><strong>wp_zen_orbitposts</strong></div></th>
+                                <th class="for_db_table_wp_zen_orbitposts"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts"><strong>wp_zen_orbitposts</strong></div></th>
+                                <th class="for_db_table_wp_zen_orbitposts"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts"><strong>wp_zen_orbitposts</strong></div></th>
+                                <th class="for_db_table_wp_zen_orbitposts"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts"><strong>wp_zen_orbitposts</strong></div></th>
+                                <th class="for_db_table_wp_zen_orbitposts"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts"><strong>wp_zen_orbitposts</strong></div></th>
+                                <th class="for_db_table_wp_zen_orbitposts"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts"><strong>wp_zen_orbitposts</strong></div></th>
+                                <th class="for_db_table_wp_zen_orbitposts"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts"><strong>wp_zen_orbitposts</strong></div></th>
+                                <th class="for_db_table_wp_zen_orbitposts"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts"><strong>wp_zen_orbitposts</strong></div></th>
+                                <th class="for_db_table_wp_zen_orbitposts"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts"><strong>wp_zen_orbitposts</strong></div></th>
+                                <th class="for_db_table_wp_zen_orbitposts"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts"><strong>wp_zen_orbitposts</strong></div></th>
                             </tr>
                             <tr class="klyra-header-row">
                                 <th class="klyra-checkbox-cell for_db_table_checkbox">
                                     <div class="cell_inner_wrapper_div for_db_table_checkbox"><input type="checkbox" id="klyra-select-all" class="klyra-checkbox"></div>
                                 </th>
                                 <th class="for_db_table_misc"><div class="cell_inner_wrapper_div for_db_table_misc">tool_buttons</div></th>
+                                <!-- wp_posts columns -->
                                 <th class="for_db_table_wp_posts" data-field="ID"><div class="cell_inner_wrapper_div for_db_table_wp_posts">id</div></th>
                                 <th class="for_db_table_wp_posts" data-field="post_status"><div class="cell_inner_wrapper_div for_db_table_wp_posts">post_status</div></th>
                                 <th class="for_db_table_wp_posts klyra-sortable-column" data-field="post_title" style="cursor: pointer; user-select: none;"><div class="cell_inner_wrapper_div for_db_table_wp_posts">post_title <span class="klyra-sort-indicator"></span></div></th>
                                 <th class="for_db_table_wp_posts" data-field="post_name"><div class="cell_inner_wrapper_div for_db_table_wp_posts">post_name</div></th>
                                 <th class="for_db_table_wp_posts" data-field="post_content"><div class="cell_inner_wrapper_div for_db_table_wp_posts">post_content</div></th>
+                                <th class="for_db_table_wp_posts" data-field="post_type"><div class="cell_inner_wrapper_div for_db_table_wp_posts">post_type</div></th>
+                                <th class="for_db_table_wp_posts" data-field="post_date"><div class="cell_inner_wrapper_div for_db_table_wp_posts">post_date</div></th>
+                                <th class="for_db_table_wp_posts" data-field="post_modified"><div class="cell_inner_wrapper_div for_db_table_wp_posts">post_modified</div></th>
+                                <th class="for_db_table_wp_posts" data-field="post_author"><div class="cell_inner_wrapper_div for_db_table_wp_posts">post_author</div></th>
+                                <th class="for_db_table_wp_posts" data-field="post_parent"><div class="cell_inner_wrapper_div for_db_table_wp_posts">post_parent</div></th>
+                                <th class="for_db_table_wp_posts" data-field="menu_order"><div class="cell_inner_wrapper_div for_db_table_wp_posts">menu_order</div></th>
+                                <th class="for_db_table_wp_posts" data-field="comment_status"><div class="cell_inner_wrapper_div for_db_table_wp_posts">comment_status</div></th>
+                                <th class="for_db_table_wp_posts" data-field="ping_status"><div class="cell_inner_wrapper_div for_db_table_wp_posts">ping_status</div></th>
+                                <!-- wp_postmeta column -->
                                 <th class="for_db_table_wp_postmeta" data-field="_elementor_data"><div class="cell_inner_wrapper_div for_db_table_wp_postmeta">_elementor_data</div></th>
+                                <!-- wp_zen_orbitposts columns -->
+                                <th class="for_db_table_wp_zen_orbitposts" data-field="rel_wp_post_id"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts">rel_wp_post_id</div></th>
+                                <th class="for_db_table_wp_zen_orbitposts" data-field="orbitpost_id"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts">orbitpost_id</div></th>
+                                <th class="for_db_table_wp_zen_orbitposts" data-field="redshift_datum"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts">redshift_datum</div></th>
+                                <th class="for_db_table_wp_zen_orbitposts" data-field="rover_datum"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts">rover_datum</div></th>
+                                <th class="for_db_table_wp_zen_orbitposts" data-field="hudson_imgplanbatch_id"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts">hudson_imgplanbatch_id</div></th>
+                                <th class="for_db_table_wp_zen_orbitposts" data-field="is_pinned"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts">is_pinned</div></th>
+                                <th class="for_db_table_wp_zen_orbitposts" data-field="is_flagged"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts">is_flagged</div></th>
+                                <th class="for_db_table_wp_zen_orbitposts" data-field="is_starred"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts">is_starred</div></th>
+                                <th class="for_db_table_wp_zen_orbitposts" data-field="is_squared"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts">is_squared</div></th>
+                                <th class="for_db_table_wp_zen_orbitposts" data-field="created_at"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts">created_at</div></th>
+                                <th class="for_db_table_wp_zen_orbitposts" data-field="updated_at"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts">updated_at</div></th>
                             </tr>
                         </thead>
                         <tbody id="klyra-beamray-tbody">
                             <tr>
-                                <td colspan="8" class="klyra-loading for_db_table_misc"><div class="cell_inner_wrapper_div for_db_table_misc">Loading data...</div></td>
+                                <td colspan="30" class="klyra-loading for_db_table_misc"><div class="cell_inner_wrapper_div for_db_table_misc">Loading data...</div></td>
                             </tr>
                         </tbody>
                     </table>
