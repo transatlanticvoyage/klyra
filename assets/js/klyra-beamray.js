@@ -315,18 +315,20 @@ jQuery(document).ready(function($) {
             
             visibleColumns.forEach(col => {
                 const isDbNameRow = $row.hasClass('shenfur_db_table_name_tr');
+                const dbTableClass = `for_db_table_${col.table.replace('wp_', 'wp_')}`;
+                
                 if (isDbNameRow) {
-                    const thContent = `<div class="cell_inner_wrapper_div"><strong>wp_${col.table}</strong></div>`;
-                    $row.append(`<th data-field="${col.field}">${thContent}</th>`);
+                    const thContent = `<div class="cell_inner_wrapper_div ${dbTableClass}"><strong>wp_${col.table}</strong></div>`;
+                    $row.append(`<th class="${dbTableClass}" data-field="${col.field}">${thContent}</th>`);
                 } else {
                     // For header row, add sorting functionality to post_title
                     if (col.field === 'post_title') {
                         const sortIndicator = (sortField === 'post_title') ? (sortOrder === 'asc' ? ' ↑' : ' ↓') : '';
-                        const thContent = `<div class="cell_inner_wrapper_div">${col.label} <span class="klyra-sort-indicator">${sortIndicator}</span></div>`;
-                        $row.append(`<th data-field="${col.field}" class="klyra-sortable-column" style="cursor: pointer; user-select: none;">${thContent}</th>`);
+                        const thContent = `<div class="cell_inner_wrapper_div ${dbTableClass}">${col.label} <span class="klyra-sort-indicator">${sortIndicator}</span></div>`;
+                        $row.append(`<th class="${dbTableClass} klyra-sortable-column" data-field="${col.field}" style="cursor: pointer; user-select: none;">${thContent}</th>`);
                     } else {
-                        const thContent = `<div class="cell_inner_wrapper_div">${col.label}</div>`;
-                        $row.append(`<th data-field="${col.field}">${thContent}</th>`);
+                        const thContent = `<div class="cell_inner_wrapper_div ${dbTableClass}">${col.label}</div>`;
+                        $row.append(`<th class="${dbTableClass}" data-field="${col.field}">${thContent}</th>`);
                     }
                 }
             });
@@ -345,16 +347,16 @@ jQuery(document).ready(function($) {
             const $tr = $('<tr></tr>').attr('data-post-id', post.ID);
             
             $tr.append(`
-                <td class="klyra-checkbox-cell">
-                    <div class="cell_inner_wrapper_div">
+                <td class="klyra-checkbox-cell for_db_table_checkbox">
+                    <div class="cell_inner_wrapper_div for_db_table_checkbox">
                         <input type="checkbox" class="klyra-checkbox klyra-row-checkbox" value="${post.ID}">
                     </div>
                 </td>
             `);
             
             $tr.append(`
-                <td>
-                    <div class="cell_inner_wrapper_div" style="display: flex; gap: 2px;">
+                <td class="for_db_table_misc">
+                    <div class="cell_inner_wrapper_div for_db_table_misc" style="display: flex; gap: 2px;">
                         <a href="/wp-admin/post.php?post=${post.ID}&action=edit" class="klyra-tool-btn" title="Edit">ED</a>
                         <a href="${getPermalink(post)}" class="klyra-tool-btn" title="View" target="_blank">VW</a>
                     </div>
@@ -363,7 +365,8 @@ jQuery(document).ready(function($) {
             
             visibleColumns.forEach(col => {
                 let cellValue = post[col.field] || '';
-                let cellClass = '';
+                const dbTableClass = `for_db_table_${col.table.replace('wp_', 'wp_')}`;
+                let cellClass = dbTableClass;
                 let cellAttrs = '';
                 
                 if (col.field === 'post_status') {
@@ -371,7 +374,7 @@ jQuery(document).ready(function($) {
                 }
                 
                 if (col.field === 'post_title') {
-                    cellClass = 'post-title-cell';
+                    cellClass += ' post-title-cell';
                 }
                 
                 if (col.editable) {
@@ -383,7 +386,7 @@ jQuery(document).ready(function($) {
                     const preview = stripTags(cellValue).substring(0, 50) + '...';
                     $tr.append(`
                         <td class="${cellClass}" ${cellAttrs}>
-                            <div class="cell_inner_wrapper_div">
+                            <div class="cell_inner_wrapper_div ${dbTableClass}">
                                 ${preview}
                                 <button class="klyra-content-edit-btn" data-id="${post.ID}" style="width: 20px; height: 20px; background: #0073aa; color: white; border: none; cursor: pointer; font-size: 10px; font-weight: bold; float: right; margin-left: 8px;">ED</button>
                             </div>
@@ -391,9 +394,9 @@ jQuery(document).ready(function($) {
                     `);
                 } else if (col.special === 'elementor') {
                     const hasElementor = cellValue ? 'Yes' : 'No';
-                    $tr.append(`<td class="${cellClass}"><div class="cell_inner_wrapper_div">${hasElementor}</div></td>`);
+                    $tr.append(`<td class="${cellClass}"><div class="cell_inner_wrapper_div ${dbTableClass}">${hasElementor}</div></td>`);
                 } else {
-                    $tr.append(`<td class="${cellClass}" ${cellAttrs}><div class="cell_inner_wrapper_div">${cellValue}</div></td>`);
+                    $tr.append(`<td class="${cellClass}" ${cellAttrs}><div class="cell_inner_wrapper_div ${dbTableClass}">${cellValue}</div></td>`);
                 }
             });
             
