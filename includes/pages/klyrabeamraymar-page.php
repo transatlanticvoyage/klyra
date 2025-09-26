@@ -23,7 +23,16 @@ function klyra_beamraymar_render_page() {
         <div style="padding: 20px;">
             <div style="display: flex; align-items: center; margin-bottom: 20px;">
                 <img src="<?php echo KLYRA_PLUGIN_URL . 'klyra-shenzi-asset-mirror/beamraymar-logo-1.png'; ?>" alt="BeamRaymar Logo" style="height: 70px; width: auto; margin-right: 15px;">
-                <h1 style="margin: 0;">Klyra BeamRay Table</h1>
+                <h1 style="margin: 0; margin-right: 20px;">Klyra BeamRay Table</h1>
+                <div style="border: 1px solid gray; padding: 10px; display: flex; align-items: center; gap: 15px;">
+                    <span style="font-size: 16px; font-weight: bold;">protozoic_chamber</span>
+                    <span style="font-size: 16px; font-weight: bold;">assigned service page</span>
+                    <div style="display: flex; gap: 0;">
+                        <button type="button" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; background: white; cursor: pointer;">all</button>
+                        <button type="button" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: -1px; background: white; cursor: pointer;">assigned only</button>
+                        <button type="button" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: -1px; background: white; cursor: pointer;">non-assigned only</button>
+                    </div>
+                </div>
             </div>
             
             <div style="background: white; border: 1px solid #ddd; padding: 15px; margin-bottom: 20px; border-radius: 5px;">

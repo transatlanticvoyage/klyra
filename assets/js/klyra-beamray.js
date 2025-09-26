@@ -160,7 +160,7 @@ jQuery(document).ready(function($) {
             if (showPostTitleColumn) wolfBandColumnCount++;
             if (showPostNameColumn) wolfBandColumnCount++;
             
-            const totalDataCols = Math.max(0, allColumns.length - wolfBandColumnCount + 1); // +1 for checkbox (always shown)
+            const totalDataCols = 31 - 7; // Total columns (31) minus wolf band columns (0-6) = 24 data columns
             const totalColPages = Math.ceil(totalDataCols / columnsPerPage);
             const btnId = $(this).attr('id');
             
@@ -518,9 +518,9 @@ jQuery(document).ready(function($) {
             
             const wolfBandCount = wolfBandIndices.length;
             
-            // Get the maximum wolf band index to determine where data columns start
-            const maxWolfBandIndex = Math.max(...wolfBandIndices, -1);
-            const dataColumnsStartIndex = maxWolfBandIndex + 1;
+            // Wolf band columns are indices 0-6, data columns start at index 7
+            const WOLF_BAND_MAX_INDEX = 6;
+            const DATA_COLUMNS_START_INDEX = WOLF_BAND_MAX_INDEX + 1; // Index 7
             
             // Calculate which data columns to show for this page
             const dataColumnsToShow = [];
@@ -528,29 +528,36 @@ jQuery(document).ready(function($) {
             
             for (let i = 0; i < columnsPerPage; i++) {
                 const dataColIndex = startDataCol + i;
-                const actualIndex = dataColumnsStartIndex + dataColIndex;
-                if (actualIndex < 31) { // Total columns in table (checkbox + tool_buttons + 29 data columns)
-                    dataColumnsToShow.push(actualIndex);
+                const actualColumnIndex = DATA_COLUMNS_START_INDEX + dataColIndex;
+                if (actualColumnIndex < 31) { // Total columns in table
+                    dataColumnsToShow.push(actualColumnIndex);
                 }
             }
             
             // Apply to each header row separately
             $('#klyra-beamray-table thead tr').each(function() {
                 $(this).find('th').each(function(index) {
-                    // Always handle wolf band columns first
-                    if ((index === 1 && !showToolButtonsColumn) ||
-                        (index === 2 && !showIdColumn) ||
-                        (index === 3 && !showPostStatusColumn) || 
-                        (index === 4 && !showComboTitleNameColumn) ||
-                        (index === 5 && !showPostTitleColumn) || 
-                        (index === 6 && !showPostNameColumn)) {
-                        $(this).hide().removeClass('wolf-exclusion-band');
-                    } else if (wolfBandIndices.includes(index)) {
-                        $(this).show().addClass('wolf-exclusion-band');
-                    } else if (dataColumnsToShow.includes(index)) {
-                        $(this).show().removeClass('wolf-exclusion-band');
+                    if (index <= WOLF_BAND_MAX_INDEX) {
+                        // Handle wolf band columns (indices 0-6)
+                        if ((index === 1 && !showToolButtonsColumn) ||
+                            (index === 2 && !showIdColumn) ||
+                            (index === 3 && !showPostStatusColumn) || 
+                            (index === 4 && !showComboTitleNameColumn) ||
+                            (index === 5 && !showPostTitleColumn) || 
+                            (index === 6 && !showPostNameColumn)) {
+                            $(this).hide().removeClass('wolf-exclusion-band');
+                        } else if (wolfBandIndices.includes(index)) {
+                            $(this).show().addClass('wolf-exclusion-band');
+                        } else {
+                            $(this).hide().removeClass('wolf-exclusion-band');
+                        }
                     } else {
-                        $(this).hide().removeClass('wolf-exclusion-band');
+                        // Handle data columns (index 7+) - these participate in pagination
+                        if (dataColumnsToShow.includes(index)) {
+                            $(this).show().removeClass('wolf-exclusion-band');
+                        } else {
+                            $(this).hide().removeClass('wolf-exclusion-band');
+                        }
                     }
                 });
             });
@@ -558,20 +565,27 @@ jQuery(document).ready(function($) {
             // Apply same logic to all data rows
             $('#klyra-beamray-table tbody tr').each(function() {
                 $(this).find('td').each(function(index) {
-                    // Always handle wolf band columns first
-                    if ((index === 1 && !showToolButtonsColumn) ||
-                        (index === 2 && !showIdColumn) ||
-                        (index === 3 && !showPostStatusColumn) || 
-                        (index === 4 && !showComboTitleNameColumn) ||
-                        (index === 5 && !showPostTitleColumn) || 
-                        (index === 6 && !showPostNameColumn)) {
-                        $(this).hide().removeClass('wolf-exclusion-band');
-                    } else if (wolfBandIndices.includes(index)) {
-                        $(this).show().addClass('wolf-exclusion-band');
-                    } else if (dataColumnsToShow.includes(index)) {
-                        $(this).show().removeClass('wolf-exclusion-band');
+                    if (index <= WOLF_BAND_MAX_INDEX) {
+                        // Handle wolf band columns (indices 0-6)
+                        if ((index === 1 && !showToolButtonsColumn) ||
+                            (index === 2 && !showIdColumn) ||
+                            (index === 3 && !showPostStatusColumn) || 
+                            (index === 4 && !showComboTitleNameColumn) ||
+                            (index === 5 && !showPostTitleColumn) || 
+                            (index === 6 && !showPostNameColumn)) {
+                            $(this).hide().removeClass('wolf-exclusion-band');
+                        } else if (wolfBandIndices.includes(index)) {
+                            $(this).show().addClass('wolf-exclusion-band');
+                        } else {
+                            $(this).hide().removeClass('wolf-exclusion-band');
+                        }
                     } else {
-                        $(this).hide().removeClass('wolf-exclusion-band');
+                        // Handle data columns (index 7+) - these participate in pagination
+                        if (dataColumnsToShow.includes(index)) {
+                            $(this).show().removeClass('wolf-exclusion-band');
+                        } else {
+                            $(this).hide().removeClass('wolf-exclusion-band');
+                        }
                     }
                 });
             });
@@ -590,21 +604,23 @@ jQuery(document).ready(function($) {
             // Apply to each header row separately
             $('#klyra-beamray-table thead tr').each(function() {
                 $(this).find('th').each(function(index) {
-                    // Special handling for optional wolf band columns
-                    if ((index === 1 && !showToolButtonsColumn) ||
-                        (index === 2 && !showIdColumn) ||
-                        (index === 3 && !showPostStatusColumn) || 
-                        (index === 4 && !showComboTitleNameColumn) ||
-                        (index === 5 && !showPostTitleColumn) || 
-                        (index === 6 && !showPostNameColumn)) {
-                        $(this).hide().removeClass('wolf-exclusion-band');
-                    } else {
-                        $(this).show(); // Show all columns
-                        if (wolfBandIndices.includes(index)) {
-                            $(this).addClass('wolf-exclusion-band'); // Maintain wolf band styling
+                    if (index <= 6) {
+                        // Handle wolf band columns (indices 0-6)
+                        if ((index === 1 && !showToolButtonsColumn) ||
+                            (index === 2 && !showIdColumn) ||
+                            (index === 3 && !showPostStatusColumn) || 
+                            (index === 4 && !showComboTitleNameColumn) ||
+                            (index === 5 && !showPostTitleColumn) || 
+                            (index === 6 && !showPostNameColumn)) {
+                            $(this).hide().removeClass('wolf-exclusion-band');
+                        } else if (wolfBandIndices.includes(index)) {
+                            $(this).show().addClass('wolf-exclusion-band');
                         } else {
-                            $(this).removeClass('wolf-exclusion-band');
+                            $(this).hide().removeClass('wolf-exclusion-band');
                         }
+                    } else {
+                        // Handle data columns (index 7+) - show all when "All" is selected
+                        $(this).show().removeClass('wolf-exclusion-band');
                     }
                 });
             });
@@ -612,33 +628,38 @@ jQuery(document).ready(function($) {
             // Apply same logic to all data rows
             $('#klyra-beamray-table tbody tr').each(function() {
                 $(this).find('td').each(function(index) {
-                    // Special handling for optional wolf band columns
-                    if ((index === 1 && !showToolButtonsColumn) ||
-                        (index === 2 && !showIdColumn) ||
-                        (index === 3 && !showPostStatusColumn) || 
-                        (index === 4 && !showComboTitleNameColumn) ||
-                        (index === 5 && !showPostTitleColumn) || 
-                        (index === 6 && !showPostNameColumn)) {
-                        $(this).hide().removeClass('wolf-exclusion-band');
-                    } else {
-                        $(this).show(); // Show all columns
-                        if (wolfBandIndices.includes(index)) {
-                            $(this).addClass('wolf-exclusion-band'); // Maintain wolf band styling
+                    if (index <= 6) {
+                        // Handle wolf band columns (indices 0-6)
+                        if ((index === 1 && !showToolButtonsColumn) ||
+                            (index === 2 && !showIdColumn) ||
+                            (index === 3 && !showPostStatusColumn) || 
+                            (index === 4 && !showComboTitleNameColumn) ||
+                            (index === 5 && !showPostTitleColumn) || 
+                            (index === 6 && !showPostNameColumn)) {
+                            $(this).hide().removeClass('wolf-exclusion-band');
+                        } else if (wolfBandIndices.includes(index)) {
+                            $(this).show().addClass('wolf-exclusion-band');
                         } else {
-                            $(this).removeClass('wolf-exclusion-band');
+                            $(this).hide().removeClass('wolf-exclusion-band');
                         }
+                    } else {
+                        // Handle data columns (index 7+) - show all when "All" is selected
+                        $(this).show().removeClass('wolf-exclusion-band');
                     }
                 });
             });
         }
         
         // Count actual columns in the table, excluding wolf exclusion band columns
-        let wolfBandColumnCount = 3; // checkbox, tool_buttons, id (always shown)
+        let wolfBandColumnCount = 1; // checkbox (always shown)
+        if (showToolButtonsColumn) wolfBandColumnCount++;
+        if (showIdColumn) wolfBandColumnCount++;
         if (showPostStatusColumn) wolfBandColumnCount++;
+        if (showComboTitleNameColumn) wolfBandColumnCount++;
         if (showPostTitleColumn) wolfBandColumnCount++;
         if (showPostNameColumn) wolfBandColumnCount++;
         
-        const totalDataCols = Math.max(0, allColumns.length - wolfBandColumnCount + 1); // +1 for checkbox (always shown)
+        const totalDataCols = 31 - 7; // Total columns (31) minus wolf band columns (0-6) = 24 data columns
         
         // Update pagination displays
         const totalColPages = Math.ceil(totalDataCols / columnsPerPage);
