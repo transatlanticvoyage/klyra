@@ -112,6 +112,36 @@
     text-decoration: none;
 }
 
+.klyra-elementor-btn {
+    width: 36px;
+    height: 36px;
+    background: #800020;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border-radius: 2px;
+    margin-right: 2px;
+}
+
+.klyra-elementor-btn:hover {
+    background: #5c0016;
+    color: white;
+    text-decoration: none;
+}
+
+.klyra-elementor-btn.disabled {
+    background: #ccc;
+    color: #999;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
 .klyra-modal {
     display: none;
     position: fixed;

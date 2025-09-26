@@ -359,6 +359,10 @@ jQuery(document).ready(function($) {
                     <div class="cell_inner_wrapper_div for_db_table_misc" style="display: flex; gap: 2px;">
                         <a href="/wp-admin/post.php?post=${post.ID}&action=edit" class="klyra-tool-btn" title="Edit">ED</a>
                         <a href="${getPermalink(post)}" class="klyra-tool-btn" title="View" target="_blank">VW</a>
+                        ${post._elementor_data ? 
+                          `<button class="klyra-elementor-btn" data-post-id="${post.ID}" title="Elementor">EL</button>` : 
+                          `<button class="klyra-elementor-btn disabled" title="No Elementor Data">EL</button>`
+                        }
                     </div>
                 </td>
             `);

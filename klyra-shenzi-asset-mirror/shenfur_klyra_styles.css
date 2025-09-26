@@ -1,5 +1,16 @@
 /* Shenfur Klyra Plugin Styles - Central CSS file for all Klyra admin pages */
 
+
+tr.shenfur_db_table_name_tr th.for_db_table_wp_posts {background-color:#f1c9f4 !important;}
+tr.shenfur_db_table_name_tr th.for_db_table_wp_postmeta {background-color:#f1c9f4 !important;}
+tr.shenfur_db_table_name_tr th.for_db_table_wp_zen_orbitposts {background-color:#f1c9f4 !important;}
+tr.shenfur_db_table_name_tr th.for_db_table_misc {background-color:#f1c9f4 !important;}
+tr.shenfur_db_table_name_tr th.for_db_table_checkbox {background-color:#f1c9f4 !important;}
+
+
+
+
+
 /* Database table name row styling */
 .shenfur_db_table_name_tr {
     background: #e0e0e0;
@@ -7,6 +18,18 @@
 
 .shenfur_db_table_name_tr th {
     font-weight: bold;
-    text-align: center;
+    text-align: left;
     background: #e0e0e0;
 }
+
+
+/*===========================================================
+
+  for_db_table_wp_posts
+  for_db_table_wp_postmeta
+  for_db_table_wp_zen_orbitposts
+  for_db_table_misc
+  for_db_table_checkbox
+  
+  
+=============================================*/
