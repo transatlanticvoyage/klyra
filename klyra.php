@@ -21,11 +21,13 @@ define('KLYRA_PLUGIN_URL', plugin_dir_url(__FILE__));
 
 require_once KLYRA_PLUGIN_PATH . 'includes/class-klyra-admin.php';
 require_once KLYRA_PLUGIN_PATH . 'includes/class-klyra-beamray-handler.php';
+require_once KLYRA_PLUGIN_PATH . 'includes/class-klyra-panzer.php';
 
 class Klyra {
     
     private $admin;
     private $beamray_handler;
+    private $panzer;
     
     public function __construct() {
         add_action('init', array($this, 'init'));
@@ -34,6 +36,7 @@ class Klyra {
         // Initialize admin immediately so the admin_menu hook is registered early
         $this->admin = new Klyra_Admin();
         $this->beamray_handler = new Klyra_Beamray_Handler();
+        $this->panzer = new Klyra_Panzer();
     }
     
     public function init() {

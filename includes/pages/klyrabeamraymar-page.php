@@ -21,6 +21,9 @@ function klyra_beamraymar_render_page() {
         <div style="height: 20px;"></div>
         
         <div style="padding: 20px;">
+            <div style="font-size: 16px; font-weight: bold; text-transform: lowercase; margin-bottom: 15px;">
+                <span style="font-weight: bold;"><?php echo esc_html($wpdb->prefix); ?></span>zen_sitespren.sitespren_base: <?php echo esc_html($sitespren_base ?: ''); ?>
+            </div>
             <div style="display: flex; align-items: center; margin-bottom: 20px;">
                 <img src="<?php echo KLYRA_PLUGIN_URL . 'klyra-shenzi-asset-mirror/beamraymar-logo-1.png'; ?>" alt="BeamRaymar Logo" style="height: 70px; width: auto; margin-right: 15px;">
                 <h1 style="margin: 0; margin-right: 20px;">Klyra BeamRay Table</h1>
@@ -34,7 +37,8 @@ function klyra_beamraymar_render_page() {
                     </div>
                     <span style="font-size: 16px; font-weight: bold;">icepick:</span>
                     <div style="display: flex; gap: 0;">
-                        <button type="button" data-icepick="home" class="klyra-icepick-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; background: white; cursor: pointer;">home</button>
+                        <button type="button" data-icepick="all" class="klyra-icepick-filter-btn active" style="padding: 8px 12px; font-size: 14px; border: 1px solid #3B82F6; background: #3B82F6; color: white; cursor: pointer;">all</button>
+                        <button type="button" data-icepick="home" class="klyra-icepick-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: -1px; background: white; cursor: pointer;">home</button>
                         <button type="button" data-icepick="blog" class="klyra-icepick-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: -1px; background: white; cursor: pointer;">blog</button>
                         <button type="button" data-icepick="others" class="klyra-icepick-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: -1px; background: white; cursor: pointer;">others</button>
                     </div>
@@ -61,9 +65,15 @@ function klyra_beamraymar_render_page() {
                             <button type="button" data-kennel="location" class="klyra-kennel-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-right: -1px; cursor: pointer; background: white;">location</button>
                             <button type="button" data-kennel="other" class="klyra-kennel-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; border-radius: 0 6px 6px 0; cursor: pointer; background: white;">other</button>
                         </div>
-                    </div>
-                    <div style="font-size: 16px; font-weight: bold; text-transform: lowercase;">
-                        <span style="font-weight: bold;"><?php echo esc_html($wpdb->prefix); ?></span>zen_sitespren.sitespren_base: <?php echo esc_html($sitespren_base ?: ''); ?>
+                        <span style="font-size: 16px; font-weight: bold; margin-left: 20px;">With Selected:</span>
+                        <select id="klyra-bulk-action" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: 8px; background: white;">
+                            <option value="">Choose action...</option>
+                            <option value="publish">update post_status to publish</option>
+                            <option value="draft">update post_status to draft</option>
+                            <option value="trash">move to trash</option>
+                            <option value="duplicate">duplicate</option>
+                        </select>
+                        <button type="button" id="klyra-bulk-submit" style="padding: 8px 16px; font-size: 14px; border: 1px solid #3B82F6; background: #3B82F6; color: white; margin-left: 8px; cursor: pointer; border-radius: 4px;">submit</button>
                     </div>
                 </div>
             </div>

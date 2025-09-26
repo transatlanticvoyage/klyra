@@ -62,7 +62,7 @@ class Klyra_Beamray_Handler {
         // For 'all', no additional filter is applied
         
         // Handle icepick filter (home/blog/others)
-        if (!empty($icepick_filter)) {
+        if (!empty($icepick_filter) && $icepick_filter !== 'all') {
             $front_page_id = get_option('page_on_front');
             $posts_page_id = get_option('page_for_posts');
             

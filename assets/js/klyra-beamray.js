@@ -11,7 +11,7 @@ jQuery(document).ready(function($) {
         post_type: '',
         post_status: 'publish',  // Default to published posts
         service_assignment: 'all',  // Default to showing all posts
-        icepick_filter: ''  // Default to no icepick filter
+        icepick_filter: 'all'  // Default to showing all posts/pages
     };
     let currentColumnPage = 1;
     let columnsPerPage = 8;
@@ -415,6 +415,68 @@ jQuery(document).ready(function($) {
             loadData();
         });
     }
+    
+    // Bulk Actions Event Handler
+    $('#klyra-bulk-submit').on('click', function() {
+        const action = $('#klyra-bulk-action').val();
+        if (!action) {
+            alert('Please select an action from the dropdown');
+            return;
+        }
+        
+        // Get all checked checkboxes
+        const selectedIds = [];
+        $('.klyra-checkbox:checked').each(function() {
+            const postId = $(this).data('post-id');
+            if (postId) {
+                selectedIds.push(postId);
+            }
+        });
+        
+        if (selectedIds.length === 0) {
+            alert('Please select at least one post by checking the checkbox');
+            return;
+        }
+        
+        const actionText = $('#klyra-bulk-action option:selected').text();
+        if (!confirm(`Are you sure you want to ${actionText} for ${selectedIds.length} selected post(s)?`)) {
+            return;
+        }
+        
+        // Disable the submit button during processing
+        const $submitBtn = $('#klyra-bulk-submit');
+        $submitBtn.prop('disabled', true).text('Processing...');
+        
+        $.ajax({
+            url: klyraBeamray.ajaxurl,
+            type: 'POST',
+            data: {
+                action: 'klyra_panzer_bulk_action',
+                nonce: klyraBeamray.nonce,
+                bulk_action: action,
+                post_ids: selectedIds
+            },
+            success: function(response) {
+                if (response.success) {
+                    alert(response.data.message);
+                    // Reload the data to reflect changes
+                    loadData();
+                    // Reset form
+                    $('#klyra-bulk-action').val('');
+                    $('#klyra-select-all').prop('checked', false);
+                } else {
+                    alert('Error: ' + response.data);
+                }
+            },
+            error: function() {
+                alert('Error performing bulk action');
+            },
+            complete: function() {
+                // Re-enable the submit button
+                $submitBtn.prop('disabled', false).text('submit');
+            }
+        });
+    });
     
     function loadData() {
         $.ajax({
