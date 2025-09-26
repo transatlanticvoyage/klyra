@@ -54,7 +54,7 @@ class Klyra {
         
         wp_enqueue_style(
             'shenfur-klyra-styles',
-            KLYRA_PLUGIN_URL . 'assets/css/shenfur_klyra_styles.css',
+            KLYRA_PLUGIN_URL . 'klyra-shenzi-asset-mirror/shenfur_klyra_styles.css',
             array(),
             KLYRA_PLUGIN_VERSION
         );
