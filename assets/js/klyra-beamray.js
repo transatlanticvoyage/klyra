@@ -16,10 +16,14 @@ jQuery(document).ready(function($) {
     let editingPostId = null;
     let sortField = '';
     let sortOrder = 'asc';
+    let showPostStatusColumn = true; // Toggle state for post_status column
+    let showPostTitleColumn = true; // Toggle state for post_title column
+    let showPostNameColumn = true; // Toggle state for post_name column
     
     const allColumns = [
         {field: 'ID', label: 'id', table: 'wp_posts'},
         {field: 'post_status', label: 'post_status', table: 'wp_posts', editable: true},
+        {field: 'combo_title_name', label: 'combo title name', table: 'wp_posts', special: 'combo'},
         {field: 'post_title', label: 'post_title', table: 'wp_posts', editable: true},
         {field: 'post_name', label: 'post_name', table: 'wp_posts', editable: true},
         {field: 'post_content', label: 'post_content', table: 'wp_posts', special: 'content'},
@@ -144,7 +148,14 @@ jQuery(document).ready(function($) {
         });
         
         $('#klyra-first-col-page, #klyra-prev-col-page, #klyra-next-col-page, #klyra-last-col-page').on('click', function() {
-            const totalColPages = Math.ceil(allColumns.length / columnsPerPage);
+            // Calculate total pages excluding wolf exclusion band columns (same as applyColumnPagination)
+            let wolfBandColumnCount = 3; // checkbox, tool_buttons, id (always shown)
+            if (showPostStatusColumn) wolfBandColumnCount++;
+            if (showPostTitleColumn) wolfBandColumnCount++;
+            if (showPostNameColumn) wolfBandColumnCount++;
+            
+            const totalDataCols = Math.max(0, allColumns.length - wolfBandColumnCount + 2); // +2 for checkbox and tool_buttons
+            const totalColPages = Math.ceil(totalDataCols / columnsPerPage);
             const btnId = $(this).attr('id');
             
             if (btnId === 'klyra-first-col-page') {
@@ -175,6 +186,45 @@ jQuery(document).ready(function($) {
             $('#klyra-modal-title').text('Create New Post');
             $('#klyra-modal-form')[0].reset();
             $('#klyra-create-modal').addClass('active');
+        });
+        
+        // Post Status Column Toggle Handler
+        $('#post-status-toggle').on('click', function() {
+            showPostStatusColumn = !showPostStatusColumn;
+            
+            if (showPostStatusColumn) {
+                $(this).removeClass('off');
+            } else {
+                $(this).addClass('off');
+            }
+            
+            renderTable();
+        });
+        
+        // Post Title Column Toggle Handler
+        $('#post-title-toggle').on('click', function() {
+            showPostTitleColumn = !showPostTitleColumn;
+            
+            if (showPostTitleColumn) {
+                $(this).removeClass('off');
+            } else {
+                $(this).addClass('off');
+            }
+            
+            renderTable();
+        });
+        
+        // Post Name Column Toggle Handler
+        $('#post-name-toggle').on('click', function() {
+            showPostNameColumn = !showPostNameColumn;
+            
+            if (showPostNameColumn) {
+                $(this).removeClass('off');
+            } else {
+                $(this).addClass('off');
+            }
+            
+            renderTable();
         });
         
         $('#klyra-create-page-btn').on('click', function() {
@@ -303,11 +353,10 @@ jQuery(document).ready(function($) {
         const $tbody = $('#klyra-beamray-tbody');
         $tbody.empty();
         
-        // Apply column pagination using show/hide
-        applyColumnPagination();
-        
         if (currentData.length === 0) {
             $tbody.html('<tr><td colspan="30" class="klyra-loading">No posts or pages found.</td></tr>');
+            // Apply column pagination even for empty state
+            applyColumnPagination();
             return;
         }
         
@@ -369,6 +418,16 @@ jQuery(document).ready(function($) {
                 } else if (col.special === 'elementor') {
                     const hasElementor = cellValue ? 'Yes' : 'No';
                     $tr.append(`<td class="${cellClass}"><div class="cell_inner_wrapper_div ${dbTableClass}">${hasElementor}</div></td>`);
+                } else if (col.special === 'combo') {
+                    // Combo column with post_title and post_name inputs
+                    $tr.append(`
+                        <td class="${cellClass}" data-field="combo_title_name" style="min-width: 250px; width: auto;">
+                            <div class="cell_inner_wrapper_div ${dbTableClass}" style="min-width: 240px; padding: 4px;">
+                                <input type="text" value="${post.post_title || ''}" class="klyra-editable-cell" data-id="${post.ID}" data-field="post_title" style="width: calc(100% - 8px); margin-bottom: 4px; padding: 4px; border: 1px solid #ddd; font-size: 12px; box-sizing: border-box;">
+                                <input type="text" value="${post.post_name || ''}" class="klyra-editable-cell" data-id="${post.ID}" data-field="post_name" style="width: calc(100% - 8px); padding: 4px; border: 1px solid #ddd; font-size: 12px; box-sizing: border-box;">
+                            </div>
+                        </td>
+                    `);
                 } else {
                     $tr.append(`<td class="${cellClass}" ${cellAttrs}><div class="cell_inner_wrapper_div ${dbTableClass}">${cellValue}</div></td>`);
                 }
@@ -393,25 +452,43 @@ jQuery(document).ready(function($) {
             currentPage = 1;
             loadData();
         });
+        
+        // Apply column pagination after table is fully built
+        applyColumnPagination();
     }
     
-    // Column pagination using show/hide approach like Grove
+    // Column pagination using show/hide approach with Wolf Exclusion Band
     function applyColumnPagination() {
         if (columnsPerPage !== allColumns.length) {
-            // Calculate visible column range (starts after fixed columns)
-            const fixedColumnCount = 2; // checkbox + tool_buttons
-            const startCol = fixedColumnCount + (currentColumnPage - 1) * columnsPerPage;
+            // Wolf Exclusion Band: checkbox + tool_buttons + id are always shown, others are optional
+            const wolfBandIndices = [0, 1, 2]; // checkbox, tool_buttons, id (always shown)
+            
+            // Add optional wolf band columns based on toggle state
+            if (showPostStatusColumn) wolfBandIndices.push(3); // post_status
+            wolfBandIndices.push(4); // combo_title_name (always shown when in wolf band)
+            if (showPostTitleColumn) wolfBandIndices.push(5); // post_title  
+            if (showPostNameColumn) wolfBandIndices.push(6); // post_name
+            
+            const wolfBandCount = wolfBandIndices.length;
+            
+            // Calculate paginated column range (starts after wolf band)
+            const startCol = wolfBandCount + (currentColumnPage - 1) * columnsPerPage;
             const endCol = startCol + columnsPerPage - 1;
             
             // Apply to each header row separately
             $('#klyra-beamray-table thead tr').each(function() {
                 $(this).find('th').each(function(index) {
-                    if (index < fixedColumnCount) {
-                        $(this).show(); // Always show fixed columns
+                    // Special handling for optional wolf band columns
+                    if ((index === 3 && !showPostStatusColumn) || 
+                        (index === 5 && !showPostTitleColumn) || 
+                        (index === 6 && !showPostNameColumn)) {
+                        $(this).hide().removeClass('wolf-exclusion-band');
+                    } else if (wolfBandIndices.includes(index)) {
+                        $(this).show().addClass('wolf-exclusion-band'); // Always show wolf band columns
                     } else if (index >= startCol && index <= endCol) {
-                        $(this).show();
+                        $(this).show().removeClass('wolf-exclusion-band');
                     } else {
-                        $(this).hide();
+                        $(this).hide().removeClass('wolf-exclusion-band');
                     }
                 });
             });
@@ -419,22 +496,79 @@ jQuery(document).ready(function($) {
             // Apply same logic to all data rows
             $('#klyra-beamray-table tbody tr').each(function() {
                 $(this).find('td').each(function(index) {
-                    if (index < fixedColumnCount) {
-                        $(this).show(); // Always show fixed columns
+                    // Special handling for optional wolf band columns
+                    if ((index === 3 && !showPostStatusColumn) || 
+                        (index === 5 && !showPostTitleColumn) || 
+                        (index === 6 && !showPostNameColumn)) {
+                        $(this).hide().removeClass('wolf-exclusion-band');
+                    } else if (wolfBandIndices.includes(index)) {
+                        $(this).show().addClass('wolf-exclusion-band'); // Always show wolf band columns
                     } else if (index >= startCol && index <= endCol) {
-                        $(this).show();
+                        $(this).show().removeClass('wolf-exclusion-band');
                     } else {
-                        $(this).hide();
+                        $(this).hide().removeClass('wolf-exclusion-band');
                     }
                 });
             });
         } else {
-            // "All" option: Show all columns
-            $('#klyra-beamray-table thead tr th, #klyra-beamray-table tbody tr td').show();
+            // "All" option: Show all columns but maintain wolf exclusion band
+            const wolfBandIndices = [0, 1, 2]; // checkbox, tool_buttons, id (always shown)
+            
+            // Add optional wolf band columns based on toggle state
+            if (showPostStatusColumn) wolfBandIndices.push(3); // post_status
+            wolfBandIndices.push(4); // combo_title_name (always shown when in wolf band)
+            if (showPostTitleColumn) wolfBandIndices.push(5); // post_title  
+            if (showPostNameColumn) wolfBandIndices.push(6); // post_name
+            
+            // Apply to each header row separately
+            $('#klyra-beamray-table thead tr').each(function() {
+                $(this).find('th').each(function(index) {
+                    // Special handling for optional wolf band columns
+                    if ((index === 3 && !showPostStatusColumn) || 
+                        (index === 5 && !showPostTitleColumn) || 
+                        (index === 6 && !showPostNameColumn)) {
+                        $(this).hide().removeClass('wolf-exclusion-band');
+                    } else {
+                        $(this).show(); // Show all columns
+                        if (wolfBandIndices.includes(index)) {
+                            $(this).addClass('wolf-exclusion-band'); // Maintain wolf band styling
+                        } else {
+                            $(this).removeClass('wolf-exclusion-band');
+                        }
+                    }
+                });
+            });
+            
+            // Apply same logic to all data rows
+            $('#klyra-beamray-table tbody tr').each(function() {
+                $(this).find('td').each(function(index) {
+                    // Special handling for optional wolf band columns
+                    if ((index === 3 && !showPostStatusColumn) || 
+                        (index === 5 && !showPostTitleColumn) || 
+                        (index === 6 && !showPostNameColumn)) {
+                        $(this).hide().removeClass('wolf-exclusion-band');
+                    } else {
+                        $(this).show(); // Show all columns
+                        if (wolfBandIndices.includes(index)) {
+                            $(this).addClass('wolf-exclusion-band'); // Maintain wolf band styling
+                        } else {
+                            $(this).removeClass('wolf-exclusion-band');
+                        }
+                    }
+                });
+            });
         }
         
+        // Count actual columns in the table, excluding wolf exclusion band columns
+        let wolfBandColumnCount = 3; // checkbox, tool_buttons, id (always shown)
+        if (showPostStatusColumn) wolfBandColumnCount++;
+        if (showPostTitleColumn) wolfBandColumnCount++;
+        if (showPostNameColumn) wolfBandColumnCount++;
+        
+        const totalDataCols = Math.max(0, allColumns.length - wolfBandColumnCount + 2); // +2 for checkbox and tool_buttons
+        
         // Update pagination displays
-        const totalColPages = Math.ceil(allColumns.length / columnsPerPage);
+        const totalColPages = Math.ceil(totalDataCols / columnsPerPage);
         const visibleColumnCount = columnsPerPage === allColumns.length ? allColumns.length : columnsPerPage;
         
         $('#klyra-current-col-page').text(currentColumnPage);

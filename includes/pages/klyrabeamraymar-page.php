@@ -64,6 +64,30 @@ function klyra_beamraymar_render_page() {
                         <circle cx="12" cy="6" r="1" fill="white"/>
                     </svg>
                     rocket_chamber
+                    
+                    <!-- Post Status Toggle Switch -->
+                    <div style="display: flex; align-items: center; gap: 8px; margin-left: 20px;">
+                        <div class="klyra-toggle-switch" id="post-status-toggle" style="position: relative; width: 50px; height: 24px; background: #4CAF50; border-radius: 12px; cursor: pointer; transition: background 0.3s;">
+                            <div class="klyra-toggle-knob" style="position: absolute; top: 2px; right: 2px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: all 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.2);"></div>
+                        </div>
+                        <span style="font-size: 16px; font-weight: bold;">show post_status column</span>
+                    </div>
+                    
+                    <!-- Post Title Toggle Switch -->
+                    <div style="display: flex; align-items: center; gap: 8px; margin-left: 20px;">
+                        <div class="klyra-toggle-switch" id="post-title-toggle" style="position: relative; width: 50px; height: 24px; background: #4CAF50; border-radius: 12px; cursor: pointer; transition: background 0.3s;">
+                            <div class="klyra-toggle-knob" style="position: absolute; top: 2px; right: 2px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: all 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.2);"></div>
+                        </div>
+                        <span style="font-size: 16px; font-weight: bold;">post_title</span>
+                    </div>
+                    
+                    <!-- Post Name Toggle Switch -->
+                    <div style="display: flex; align-items: center; gap: 8px; margin-left: 20px;">
+                        <div class="klyra-toggle-switch" id="post-name-toggle" style="position: relative; width: 50px; height: 24px; background: #4CAF50; border-radius: 12px; cursor: pointer; transition: background 0.3s;">
+                            <div class="klyra-toggle-knob" style="position: absolute; top: 2px; right: 2px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: all 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.2);"></div>
+                        </div>
+                        <span style="font-size: 16px; font-weight: bold;">post_name</span>
+                    </div>
                 </div>
                 <div style="margin-top: 24px; padding-top: 4px; padding-bottom: 0; padding-left: 8px; padding-right: 8px;">
                     <div style="display: flex; align-items: end; justify-content: space-between;">
@@ -214,6 +238,7 @@ function klyra_beamraymar_render_page() {
                                 <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong>wp_posts</strong></div></th>
                                 <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong>wp_posts</strong></div></th>
                                 <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong>wp_posts</strong></div></th>
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong>wp_posts</strong></div></th>
                                 <!-- wp_postmeta column -->
                                 <th class="for_db_table_wp_postmeta"><div class="cell_inner_wrapper_div for_db_table_wp_postmeta"><strong>wp_postmeta</strong></div></th>
                                 <!-- wp_zen_orbitposts columns -->
@@ -238,6 +263,7 @@ function klyra_beamraymar_render_page() {
                                 <!-- wp_posts columns -->
                                 <th class="for_db_table_wp_posts" data-field="ID"><div class="cell_inner_wrapper_div for_db_table_wp_posts">id</div></th>
                                 <th class="for_db_table_wp_posts" data-field="post_status"><div class="cell_inner_wrapper_div for_db_table_wp_posts">post_status</div></th>
+                                <th class="for_db_table_wp_posts" data-field="combo_title_name"><div class="cell_inner_wrapper_div for_db_table_wp_posts">combo title name</div></th>
                                 <th class="for_db_table_wp_posts klyra-sortable-column" data-field="post_title" style="cursor: pointer; user-select: none;"><div class="cell_inner_wrapper_div for_db_table_wp_posts">post_title <span class="klyra-sort-indicator"></span></div></th>
                                 <th class="for_db_table_wp_posts" data-field="post_name"><div class="cell_inner_wrapper_div for_db_table_wp_posts">post_name</div></th>
                                 <th class="for_db_table_wp_posts" data-field="post_content"><div class="cell_inner_wrapper_div for_db_table_wp_posts">post_content</div></th>
@@ -267,7 +293,7 @@ function klyra_beamraymar_render_page() {
                         </thead>
                         <tbody id="klyra-beamray-tbody">
                             <tr>
-                                <td colspan="30" class="klyra-loading for_db_table_misc"><div class="cell_inner_wrapper_div for_db_table_misc">Loading data...</div></td>
+                                <td colspan="31" class="klyra-loading for_db_table_misc"><div class="cell_inner_wrapper_div for_db_table_misc">Loading data...</div></td>
                             </tr>
                         </tbody>
                     </table>
