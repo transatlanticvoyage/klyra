@@ -19,7 +19,7 @@ class Klyra_Admin {
             'klyra',
             array($this, 'main_page'),
             'dashicons-database',
-            3
+            3.4
         );
         
         add_submenu_page(
@@ -29,6 +29,15 @@ class Klyra_Admin {
             'manage_options',
             'klyrabeamraymar',
             array($this, 'klyrabeamraymar_page')
+        );
+        
+        add_submenu_page(
+            'klyra',
+            'klyrasteeplejack',
+            'klyrasteeplejack',
+            'manage_options',
+            'klyrasteeplejack',
+            array($this, 'klyrasteeplejack_page')
         );
     }
     
@@ -42,6 +51,11 @@ class Klyra_Admin {
     public function klyrabeamraymar_page() {
         require_once KLYRA_PLUGIN_PATH . 'includes/pages/klyrabeamraymar-page.php';
         klyra_beamraymar_render_page();
+    }
+    
+    public function klyrasteeplejack_page() {
+        require_once KLYRA_PLUGIN_PATH . 'includes/pages/klyrasteeplejack-page.php';
+        klyra_steeplejack_render_page();
     }
     
     public function suppress_all_admin_notices() {
