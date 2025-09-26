@@ -1,1 +1,12 @@
 /* Shenfur Klyra Plugin Styles - Central CSS file for all Klyra admin pages */
+
+/* Database table name row styling */
+.klyra-db-table-name-row {
+    background: #e0e0e0;
+}
+
+.klyra-db-table-name-row th {
+    font-weight: bold;
+    text-align: center;
+    background: #e0e0e0;
+}

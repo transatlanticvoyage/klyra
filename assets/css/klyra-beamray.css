@@ -16,9 +16,6 @@
     background: #f8f9fa;
 }
 
-.klyra-db-table-name-row {
-    background: #e0e0e0;
-}
 
 .klyra-header-row th {
     border: 1px solid #ddd;
@@ -38,11 +35,6 @@
     text-align: left;
 }
 
-.klyra-db-table-name-row th {
-    font-weight: bold;
-    text-align: center;
-    background: #e0e0e0;
-}
 
 .klyra-table tbody tr:hover {
     background: #f8f9fa;

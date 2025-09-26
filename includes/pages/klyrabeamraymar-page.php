@@ -219,7 +219,7 @@ function klyra_beamraymar_render_page() {
                         </thead>
                         <tbody id="klyra-beamray-tbody">
                             <tr>
-                                <td colspan="8" class="klyra-loading">Loading data...</td>
+                                <td colspan="8" class="klyra-loading"><div class="cell_inner_wrapper_div">Loading data...</div></td>
                             </tr>
                         </tbody>
                     </table>

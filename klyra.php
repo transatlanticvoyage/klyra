@@ -52,6 +52,13 @@ class Klyra {
             KLYRA_PLUGIN_VERSION
         );
         
+        wp_enqueue_style(
+            'shenfur-klyra-styles',
+            KLYRA_PLUGIN_URL . 'assets/css/shenfur_klyra_styles.css',
+            array(),
+            KLYRA_PLUGIN_VERSION
+        );
+        
         wp_enqueue_script(
             'klyra-beamray-js',
             KLYRA_PLUGIN_URL . 'assets/js/klyra-beamray.js',
