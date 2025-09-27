@@ -7,6 +7,8 @@ jQuery(document).ready(function($) {
     let totalItems = 0;
     let totalPages = 1;
     let currentData = [];
+    let allData = []; // Store all unfiltered data
+    let clientSideSearch = ''; // Store client-side search term
     let activeFilters = {
         post_type: '',
         post_status: 'publish',  // Default to published posts
@@ -108,14 +110,18 @@ jQuery(document).ready(function($) {
             loadData();
         });
         
-        $('#klyra-search').on('input', debounce(function() {
-            currentSearch = $(this).val();
-            currentPage = 1;
-            loadData();
-        }, 500));
+        $('#klyra-search').on('input', function() {
+            clientSideSearch = $(this).val().toLowerCase().trim();
+            applyClientSideFilter();
+        });
         
         $('.klyra-status-filter-btn').on('click', function() {
             const statusValue = $(this).data('status');
+            
+            // Clear client-side search when changing filters
+            clientSideSearch = '';
+            $('#klyra-search').val('');
+            $('#klyra-filter-info').remove();
             
             // Remove active class from all status buttons
             $('.klyra-status-filter-btn').removeClass('active').css({
@@ -142,6 +148,11 @@ jQuery(document).ready(function($) {
         $('.klyra-service-filter-btn').on('click', function() {
             const filterValue = $(this).data('filter');
             
+            // Clear client-side search when changing filters
+            clientSideSearch = '';
+            $('#klyra-search').val('');
+            $('#klyra-filter-info').remove();
+            
             // Remove active class from all service filter buttons
             $('.klyra-service-filter-btn').removeClass('active').css({
                 'background': 'white',
@@ -166,6 +177,11 @@ jQuery(document).ready(function($) {
         // Icepick Filter Handler
         $('.klyra-icepick-filter-btn').on('click', function() {
             const filterValue = $(this).data('icepick');
+            
+            // Clear client-side search when changing filters
+            clientSideSearch = '';
+            $('#klyra-search').val('');
+            $('#klyra-filter-info').remove();
             
             // Remove active class from all icepick filter buttons
             $('.klyra-icepick-filter-btn').removeClass('active').css({
@@ -478,6 +494,44 @@ jQuery(document).ready(function($) {
         });
     });
     
+    // Service Filter Navigation (prev/next cycling)
+    $('#klyra-service-prev, #klyra-service-next').on('click', function() {
+        const serviceFilters = ['all', 'assigned', 'non-assigned'];
+        const currentIndex = serviceFilters.indexOf(activeFilters.service_assignment);
+        let newIndex;
+        
+        if ($(this).attr('id') === 'klyra-service-prev') {
+            // Previous: wrap to end if at beginning (recursive behavior)
+            newIndex = currentIndex > 0 ? currentIndex - 1 : serviceFilters.length - 1;
+        } else {
+            // Next: wrap to beginning if at end (recursive behavior)
+            newIndex = currentIndex < serviceFilters.length - 1 ? currentIndex + 1 : 0;
+        }
+        
+        // Simulate clicking the corresponding filter button
+        const newFilter = serviceFilters[newIndex];
+        $(`.klyra-service-filter-btn[data-filter="${newFilter}"]`).trigger('click');
+    });
+    
+    // Icepick Filter Navigation (prev/next cycling)
+    $('#klyra-icepick-prev, #klyra-icepick-next').on('click', function() {
+        const icepickFilters = ['all', 'home', 'blog', 'others'];
+        const currentIndex = icepickFilters.indexOf(activeFilters.icepick_filter);
+        let newIndex;
+        
+        if ($(this).attr('id') === 'klyra-icepick-prev') {
+            // Previous: wrap to end if at beginning (recursive behavior)
+            newIndex = currentIndex > 0 ? currentIndex - 1 : icepickFilters.length - 1;
+        } else {
+            // Next: wrap to beginning if at end (recursive behavior)
+            newIndex = currentIndex < icepickFilters.length - 1 ? currentIndex + 1 : 0;
+        }
+        
+        // Simulate clicking the corresponding filter button
+        const newFilter = icepickFilters[newIndex];
+        $(`.klyra-icepick-filter-btn[data-icepick="${newFilter}"]`).trigger('click');
+    });
+    
     function loadData() {
         $.ajax({
             url: klyraBeamray.ajaxurl,
@@ -487,7 +541,7 @@ jQuery(document).ready(function($) {
                 nonce: klyraBeamray.nonce,
                 page: currentPage,
                 per_page: itemsPerPage,
-                search: currentSearch,
+                search: '', // Don't send search to server, handle client-side
                 post_type: activeFilters.post_type,
                 post_status: activeFilters.post_status,
                 service_assignment: activeFilters.service_assignment,
@@ -497,10 +551,11 @@ jQuery(document).ready(function($) {
             },
             success: function(response) {
                 if (response.success) {
-                    currentData = response.data.data;
+                    allData = response.data.data; // Store all data
+                    currentData = allData; // Initially show all data
                     totalItems = response.data.total;
                     totalPages = response.data.total_pages;
-                    renderTable();
+                    applyClientSideFilter(); // Apply any existing search filter
                     updatePaginationInfo();
                 }
             },
@@ -508,6 +563,30 @@ jQuery(document).ready(function($) {
                 alert('Error loading data');
             }
         });
+    }
+    
+    function applyClientSideFilter() {
+        if (!clientSideSearch) {
+            // No search term, show all data
+            currentData = allData;
+        } else {
+            // Filter data based on post_title and post_name
+            currentData = allData.filter(post => {
+                const postTitle = (post.post_title || '').toLowerCase();
+                const postName = (post.post_name || '').toLowerCase();
+                return postTitle.includes(clientSideSearch) || postName.includes(clientSideSearch);
+            });
+        }
+        
+        // Update the display message if no results
+        renderTable();
+        
+        // Update result count display
+        const filterInfo = clientSideSearch ? ` (filtered: ${currentData.length} results)` : '';
+        $('#klyra-filter-info').remove();
+        if (filterInfo) {
+            $('#klyra-search').after(`<span id="klyra-filter-info" style="margin-left: 10px; color: #666; font-size: 12px;">${filterInfo}</span>`);
+        }
     }
     
     function renderTable() {

@@ -30,17 +30,41 @@ function klyra_beamraymar_render_page() {
                 <div style="border: 1px solid gray; padding: 10px; display: flex; align-items: center; gap: 15px;">
                     <span style="font-size: 16px; font-weight: bold;">protozoic_chamber</span>
                     <span style="font-size: 16px; font-weight: bold;">assigned service page</span>
-                    <div style="display: flex; gap: 0;">
-                        <button type="button" data-filter="all" class="klyra-service-filter-btn active" style="padding: 8px 12px; font-size: 14px; border: 1px solid #3B82F6; background: #3B82F6; color: white; cursor: pointer;">all</button>
+                    <div style="display: flex; gap: 0; align-items: center;">
+                        <button type="button" id="klyra-service-prev" style="padding: 8px; font-size: 14px; border: 1px solid #D1D5DB; border-radius: 4px 0 0 4px; cursor: pointer; background: white; margin-right: -1px;">
+                            <svg style="width: 16px; height: 16px; color: #6B7280;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <path d="M1 4v6h6" />
+                                <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
+                            </svg>
+                        </button>
+                        <button type="button" data-filter="all" class="klyra-service-filter-btn active" style="padding: 8px 12px; font-size: 14px; border: 1px solid #3B82F6; background: #3B82F6; color: white; cursor: pointer; margin-left: -1px;">all</button>
                         <button type="button" data-filter="assigned" class="klyra-service-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: -1px; background: white; cursor: pointer;">assigned only</button>
                         <button type="button" data-filter="non-assigned" class="klyra-service-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: -1px; background: white; cursor: pointer;">non-assigned only</button>
+                        <button type="button" id="klyra-service-next" style="padding: 8px; font-size: 14px; border: 1px solid #D1D5DB; border-radius: 0 4px 4px 0; cursor: pointer; background: white; margin-left: -1px;">
+                            <svg style="width: 16px; height: 16px; color: #6B7280;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <path d="M23 4v6h-6" />
+                                <path d="M20.49 15a9 9 0 1 1-2.13-9.36L23 10" />
+                            </svg>
+                        </button>
                     </div>
                     <span style="font-size: 16px; font-weight: bold;">icepick:</span>
-                    <div style="display: flex; gap: 0;">
-                        <button type="button" data-icepick="all" class="klyra-icepick-filter-btn active" style="padding: 8px 12px; font-size: 14px; border: 1px solid #3B82F6; background: #3B82F6; color: white; cursor: pointer;">all</button>
+                    <div style="display: flex; gap: 0; align-items: center;">
+                        <button type="button" id="klyra-icepick-prev" style="padding: 8px; font-size: 14px; border: 1px solid #D1D5DB; border-radius: 4px 0 0 4px; cursor: pointer; background: white; margin-right: -1px;">
+                            <svg style="width: 16px; height: 16px; color: #6B7280;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <path d="M1 4v6h6" />
+                                <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
+                            </svg>
+                        </button>
+                        <button type="button" data-icepick="all" class="klyra-icepick-filter-btn active" style="padding: 8px 12px; font-size: 14px; border: 1px solid #3B82F6; background: #3B82F6; color: white; cursor: pointer; margin-left: -1px;">all</button>
                         <button type="button" data-icepick="home" class="klyra-icepick-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: -1px; background: white; cursor: pointer;">home</button>
                         <button type="button" data-icepick="blog" class="klyra-icepick-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: -1px; background: white; cursor: pointer;">blog</button>
                         <button type="button" data-icepick="others" class="klyra-icepick-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: -1px; background: white; cursor: pointer;">others</button>
+                        <button type="button" id="klyra-icepick-next" style="padding: 8px; font-size: 14px; border: 1px solid #D1D5DB; border-radius: 0 4px 4px 0; cursor: pointer; background: white; margin-left: -1px;">
+                            <svg style="width: 16px; height: 16px; color: #6B7280;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <path d="M23 4v6h-6" />
+                                <path d="M20.49 15a9 9 0 1 1-2.13-9.36L23 10" />
+                            </svg>
+                        </button>
                     </div>
                 </div>
             </div>
