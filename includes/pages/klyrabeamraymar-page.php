@@ -34,6 +34,9 @@ function klyra_beamraymar_render_page() {
                         <button type="button" data-posttype="post" class="klyra-posttype-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: -1px; border-radius: 0 4px 4px 0; background: white; cursor: pointer;">post</button>
                     </div>
                 </div>
+                <div style="border: 1px solid gray; padding: 10px; display: flex; align-items: center; gap: 15px;">
+                    <span style="font-size: 16px; font-weight: bold;">hannazoic_chamber</span>
+                </div>
             </div>
             <div style="display: flex; align-items: center; margin-bottom: 20px;">
                 <img src="<?php echo KLYRA_PLUGIN_URL . 'klyra-shenzi-asset-mirror/beamraymar-logo-1.png'; ?>" alt="BeamRaymar Logo" style="height: 70px; width: auto; margin-right: 15px;">
