@@ -35,7 +35,7 @@ function klyra_beamraymar_render_page() {
                     </div>
                 </div>
                 <div style="border: 1px solid gray; padding: 10px; display: flex; align-items: center; gap: 15px;">
-                    <span style="font-size: 16px; font-weight: bold;">hannazoic_chamber</span>
+                    <span style="font-size: 16px; font-weight: bold;">venlazoic_chamber</span>
                 </div>
             </div>
             <div style="display: flex; align-items: center; margin-bottom: 20px;">
