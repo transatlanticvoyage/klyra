@@ -286,10 +286,7 @@ jQuery(document).ready(function($) {
         });
         
         $('#klyra-create-post-btn').on('click', function() {
-            $('#modal-post-type').val('post');
-            $('#klyra-modal-title').text('Create New Post');
-            $('#klyra-modal-form')[0].reset();
-            $('#klyra-create-modal').addClass('active');
+            createAutoNumberedPost();
         });
         
         // Tool Buttons Column Toggle Handler
@@ -371,10 +368,7 @@ jQuery(document).ready(function($) {
         });
         
         $('#klyra-create-page-btn').on('click', function() {
-            $('#modal-post-type').val('page');
-            $('#klyra-modal-title').text('Create New Page');
-            $('#klyra-modal-form')[0].reset();
-            $('#klyra-create-modal').addClass('active');
+            createAutoNumberedPage();
         });
         
         $('#klyra-modal-close, #klyra-modal-cancel').on('click', function() {
@@ -1073,5 +1067,51 @@ jQuery(document).ready(function($) {
             return '/' + post.post_name + '/';
         }
         return '/?p=' + post.ID;
+    }
+    
+    function createAutoNumberedPost() {
+        $.ajax({
+            url: klyraBeamray.ajaxurl,
+            type: 'POST',
+            data: {
+                action: 'klyra_create_auto_numbered_post',
+                nonce: klyraBeamray.nonce
+            },
+            success: function(response) {
+                if (response.success) {
+                    alert('Success: ' + response.data.message);
+                    // Reload the table to show the new post
+                    loadData();
+                } else {
+                    alert('Error creating post: ' + response.data);
+                }
+            },
+            error: function() {
+                alert('Error creating post');
+            }
+        });
+    }
+    
+    function createAutoNumberedPage() {
+        $.ajax({
+            url: klyraBeamray.ajaxurl,
+            type: 'POST',
+            data: {
+                action: 'klyra_create_auto_numbered_page',
+                nonce: klyraBeamray.nonce
+            },
+            success: function(response) {
+                if (response.success) {
+                    alert('Success: ' + response.data.message);
+                    // Reload the table to show the new page
+                    loadData();
+                } else {
+                    alert('Error creating page: ' + response.data);
+                }
+            },
+            error: function() {
+                alert('Error creating page');
+            }
+        });
     }
 });

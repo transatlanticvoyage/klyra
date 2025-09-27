@@ -12,6 +12,8 @@ class Klyra_Beamray_Handler {
         add_action('wp_ajax_klyra_create_post', array($this, 'ajax_create_post'));
         add_action('wp_ajax_klyra_update_post_content', array($this, 'ajax_update_post_content'));
         add_action('wp_ajax_klyra_update_elementor_data', array($this, 'ajax_update_elementor_data'));
+        add_action('wp_ajax_klyra_create_auto_numbered_post', array($this, 'ajax_create_auto_numbered_post'));
+        add_action('wp_ajax_klyra_create_auto_numbered_page', array($this, 'ajax_create_auto_numbered_page'));
     }
     
     public function ajax_get_posts_data() {
@@ -251,5 +253,104 @@ class Klyra_Beamray_Handler {
         }
         
         wp_send_json_success(array('message' => 'Elementor data updated successfully'));
+    }
+    
+    public function ajax_create_auto_numbered_post() {
+        check_ajax_referer('klyra_beamray_nonce', 'nonce');
+        
+        if (!current_user_can('edit_posts')) {
+            wp_send_json_error('Insufficient permissions');
+            return;
+        }
+        
+        $next_number = $this->get_next_auto_number('post');
+        $post_title = "new post {$next_number}";
+        
+        $post_data = array(
+            'post_title' => $post_title,
+            'post_content' => '',
+            'post_status' => 'draft',
+            'post_type' => 'post',
+            'post_name' => sanitize_title($post_title)
+        );
+        
+        $post_id = wp_insert_post($post_data, true);
+        
+        if (is_wp_error($post_id)) {
+            wp_send_json_error($post_id->get_error_message());
+            return;
+        }
+        
+        wp_send_json_success(array(
+            'message' => "Created new post: {$post_title}",
+            'post_id' => $post_id,
+            'post_title' => $post_title
+        ));
+    }
+    
+    public function ajax_create_auto_numbered_page() {
+        check_ajax_referer('klyra_beamray_nonce', 'nonce');
+        
+        if (!current_user_can('edit_pages')) {
+            wp_send_json_error('Insufficient permissions');
+            return;
+        }
+        
+        $next_number = $this->get_next_auto_number('page');
+        $post_title = "new page {$next_number}";
+        
+        $post_data = array(
+            'post_title' => $post_title,
+            'post_content' => '',
+            'post_status' => 'draft',
+            'post_type' => 'page',
+            'post_name' => sanitize_title($post_title)
+        );
+        
+        $post_id = wp_insert_post($post_data, true);
+        
+        if (is_wp_error($post_id)) {
+            wp_send_json_error($post_id->get_error_message());
+            return;
+        }
+        
+        wp_send_json_success(array(
+            'message' => "Created new page: {$post_title}",
+            'post_id' => $post_id,
+            'post_title' => $post_title
+        ));
+    }
+    
+    private function get_next_auto_number($post_type) {
+        global $wpdb;
+        
+        $prefix = "new {$post_type} ";
+        $pattern = $prefix . '%';
+        
+        // Find all posts with titles matching "new post %" or "new page %"
+        $results = $wpdb->get_results($wpdb->prepare(
+            "SELECT post_title FROM {$wpdb->prefix}posts 
+             WHERE post_type = %s 
+             AND post_title LIKE %s 
+             AND post_status IN ('publish', 'draft', 'private', 'pending')",
+            $post_type,
+            $pattern
+        ));
+        
+        $max_number = 0;
+        
+        foreach ($results as $result) {
+            $title = $result->post_title;
+            
+            // Extract number from titles like "new post 5" or "new page 12"
+            if (preg_match('/^new ' . preg_quote($post_type, '/') . ' (\d+)$/i', $title, $matches)) {
+                $number = intval($matches[1]);
+                if ($number > $max_number) {
+                    $max_number = $number;
+                }
+            }
+        }
+        
+        return $max_number + 1;
     }
 }
