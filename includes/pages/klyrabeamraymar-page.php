@@ -21,8 +21,19 @@ function klyra_beamraymar_render_page() {
         <div style="height: 20px;"></div>
         
         <div style="padding: 20px;">
-            <div style="font-size: 16px; font-weight: bold; text-transform: lowercase; margin-bottom: 15px;">
-                <span style="font-weight: bold;"><?php echo esc_html($wpdb->prefix); ?></span>zen_sitespren.sitespren_base: <?php echo esc_html($sitespren_base ?: ''); ?>
+            <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 15px;">
+                <div style="font-size: 16px; font-weight: bold; text-transform: lowercase;">
+                    <span style="font-weight: bold;"><?php echo esc_html($wpdb->prefix); ?></span>zen_sitespren.sitespren_base: <?php echo esc_html($sitespren_base ?: ''); ?>
+                </div>
+                <div style="border: 1px solid gray; padding: 10px; display: flex; align-items: center; gap: 15px;">
+                    <span style="font-size: 16px; font-weight: bold;">phrenozoic_chamber</span>
+                    <span style="font-size: 16px; font-weight: bold;">post_type</span>
+                    <div style="display: flex; gap: 0;">
+                        <button type="button" data-posttype="all" class="klyra-posttype-filter-btn active" style="padding: 8px 12px; font-size: 14px; border: 1px solid #3B82F6; background: #3B82F6; color: white; border-radius: 4px 0 0 4px; cursor: pointer;">all</button>
+                        <button type="button" data-posttype="page" class="klyra-posttype-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: -1px; background: white; cursor: pointer;">page</button>
+                        <button type="button" data-posttype="post" class="klyra-posttype-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: -1px; border-radius: 0 4px 4px 0; background: white; cursor: pointer;">post</button>
+                    </div>
+                </div>
             </div>
             <div style="display: flex; align-items: center; margin-bottom: 20px;">
                 <img src="<?php echo KLYRA_PLUGIN_URL . 'klyra-shenzi-asset-mirror/beamraymar-logo-1.png'; ?>" alt="BeamRaymar Logo" style="height: 70px; width: auto; margin-right: 15px;">
@@ -58,6 +69,7 @@ function klyra_beamraymar_render_page() {
                         <button type="button" data-icepick="all" class="klyra-icepick-filter-btn active" style="padding: 8px 12px; font-size: 14px; border: 1px solid #3B82F6; background: #3B82F6; color: white; cursor: pointer; margin-left: -1px;">all</button>
                         <button type="button" data-icepick="home" class="klyra-icepick-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: -1px; background: white; cursor: pointer;">home</button>
                         <button type="button" data-icepick="blog" class="klyra-icepick-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: -1px; background: white; cursor: pointer;">blog</button>
+                        <button type="button" data-icepick="assigned" class="klyra-icepick-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: -1px; background: white; cursor: pointer;">assigned only</button>
                         <button type="button" data-icepick="others" class="klyra-icepick-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: -1px; background: white; cursor: pointer;">others</button>
                         <button type="button" id="klyra-icepick-next" style="padding: 8px; font-size: 14px; border: 1px solid #D1D5DB; border-radius: 0 4px 4px 0; cursor: pointer; background: white; margin-left: -1px;">
                             <svg style="width: 16px; height: 16px; color: #6B7280;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">

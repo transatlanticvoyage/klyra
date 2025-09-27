@@ -37,7 +37,7 @@ class Klyra_Beamray_Handler {
         
         $where_clauses = array("p.post_type IN ('post', 'page')");
         
-        if (!empty($post_type_filter)) {
+        if (!empty($post_type_filter) && $post_type_filter !== 'all') {
             $where_clauses[] = $wpdb->prepare("p.post_type = %s", $post_type_filter);
         }
         
@@ -61,7 +61,7 @@ class Klyra_Beamray_Handler {
         }
         // For 'all', no additional filter is applied
         
-        // Handle icepick filter (home/blog/others)
+        // Handle icepick filter (home/blog/assigned/others)
         if (!empty($icepick_filter) && $icepick_filter !== 'all') {
             $front_page_id = get_option('page_on_front');
             $posts_page_id = get_option('page_for_posts');
@@ -82,15 +82,30 @@ class Klyra_Beamray_Handler {
                     // If no posts page is set, show no results
                     $where_clauses[] = "p.ID = 0";
                 }
+            } elseif ($icepick_filter === 'assigned') {
+                // Show only pages that are assigned to services
+                $where_clauses[] = "p.ID IN (SELECT asn_service_page_id FROM {$wpdb->prefix}zen_services WHERE asn_service_page_id IS NOT NULL)";
             } elseif ($icepick_filter === 'others') {
-                // Show all pages except home and blog
+                // Show all pages except home, blog, and assigned pages
                 $exclude_ids = array();
                 if ($front_page_id) $exclude_ids[] = $front_page_id;
                 if ($posts_page_id) $exclude_ids[] = $posts_page_id;
                 
+                // Build the exclusion query for others
+                $exclusion_parts = array();
+                
+                // Exclude home and blog pages if they exist
                 if (!empty($exclude_ids)) {
                     $exclude_placeholders = implode(',', array_fill(0, count($exclude_ids), '%d'));
-                    $where_clauses[] = $wpdb->prepare("p.ID NOT IN ($exclude_placeholders)", $exclude_ids);
+                    $exclusion_parts[] = $wpdb->prepare("p.ID NOT IN ($exclude_placeholders)", $exclude_ids);
+                }
+                
+                // Also exclude assigned pages
+                $exclusion_parts[] = "p.ID NOT IN (SELECT asn_service_page_id FROM {$wpdb->prefix}zen_services WHERE asn_service_page_id IS NOT NULL)";
+                
+                // Combine all exclusions
+                if (!empty($exclusion_parts)) {
+                    $where_clauses[] = '(' . implode(' AND ', $exclusion_parts) . ')';
                 }
             }
         }

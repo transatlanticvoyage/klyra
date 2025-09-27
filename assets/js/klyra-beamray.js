@@ -10,7 +10,7 @@ jQuery(document).ready(function($) {
     let allData = []; // Store all unfiltered data
     let clientSideSearch = ''; // Store client-side search term
     let activeFilters = {
-        post_type: '',
+        post_type: 'all',  // Default to showing all post types
         post_status: 'publish',  // Default to published posts
         service_assignment: 'all',  // Default to showing all posts
         icepick_filter: 'all'  // Default to showing all posts/pages
@@ -113,6 +113,36 @@ jQuery(document).ready(function($) {
         $('#klyra-search').on('input', function() {
             clientSideSearch = $(this).val().toLowerCase().trim();
             applyClientSideFilter();
+        });
+        
+        // Post Type Filter Handler
+        $('.klyra-posttype-filter-btn').on('click', function() {
+            const postTypeValue = $(this).data('posttype');
+            
+            // Clear client-side search when changing filters
+            clientSideSearch = '';
+            $('#klyra-search').val('');
+            $('#klyra-filter-info').remove();
+            
+            // Remove active class from all post type buttons
+            $('.klyra-posttype-filter-btn').removeClass('active').css({
+                'background': 'white',
+                'color': '#333',
+                'border-color': '#D1D5DB'
+            });
+            
+            // Add active class to clicked button
+            $(this).addClass('active').css({
+                'background': '#3B82F6',
+                'color': 'white',
+                'border-color': '#3B82F6'
+            });
+            
+            // Set the filter value
+            activeFilters.post_type = postTypeValue;
+            
+            currentPage = 1;
+            loadData();
         });
         
         $('.klyra-status-filter-btn').on('click', function() {
@@ -356,6 +386,67 @@ jQuery(document).ready(function($) {
             createPost();
         });
         
+        // Handler for combo column inputs (already input elements)
+        $(document).on('blur', '.klyra-combo-input', function() {
+            const $input = $(this);
+            const postId = $input.data('id');
+            const field = $input.data('field');
+            const originalValue = $input.data('original');
+            const newValue = $input.val();
+            
+            if (newValue !== originalValue) {
+                // Create a temporary cell element for the updateField function
+                const $tempCell = $('<div>').append($('<div class="cell_inner_wrapper_div">'));
+                
+                $.ajax({
+                    url: klyraBeamray.ajaxurl,
+                    type: 'POST',
+                    data: {
+                        action: 'klyra_update_post_field',
+                        nonce: klyraBeamray.nonce,
+                        post_id: postId,
+                        field: field,
+                        value: newValue
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            // Update the data-original attribute with new value
+                            $input.data('original', newValue);
+                            $input.attr('data-original', newValue);
+                            
+                            // Update the currentData array
+                            const post = currentData.find(p => p.ID == postId);
+                            if (post) {
+                                post[field] = newValue;
+                            }
+                            
+                            // Update allData array as well
+                            const allPost = allData.find(p => p.ID == postId);
+                            if (allPost) {
+                                allPost[field] = newValue;
+                            }
+                        } else {
+                            alert('Error updating field: ' + response.data);
+                            // Revert to original value
+                            $input.val(originalValue);
+                        }
+                    },
+                    error: function() {
+                        alert('Error updating field');
+                        // Revert to original value
+                        $input.val(originalValue);
+                    }
+                });
+            }
+        });
+        
+        // Handler for combo column inputs - Enter key
+        $(document).on('keypress', '.klyra-combo-input', function(e) {
+            if (e.which === 13) {
+                $(this).blur();
+            }
+        });
+        
         $(document).on('click', '.klyra-editable-cell', function() {
             const $cell = $(this);
             const postId = $cell.data('id');
@@ -515,7 +606,7 @@ jQuery(document).ready(function($) {
     
     // Icepick Filter Navigation (prev/next cycling)
     $('#klyra-icepick-prev, #klyra-icepick-next').on('click', function() {
-        const icepickFilters = ['all', 'home', 'blog', 'others'];
+        const icepickFilters = ['all', 'home', 'blog', 'assigned', 'others'];
         const currentIndex = icepickFilters.indexOf(activeFilters.icepick_filter);
         let newIndex;
         
@@ -663,8 +754,8 @@ jQuery(document).ready(function($) {
                     $tr.append(`
                         <td class="${cellClass}" data-field="combo_title_name" style="min-width: 250px; width: auto;">
                             <div class="cell_inner_wrapper_div ${dbTableClass}" style="min-width: 240px; padding: 4px;">
-                                <input type="text" value="${post.post_title || ''}" class="klyra-editable-cell" data-id="${post.ID}" data-field="post_title" style="width: calc(100% - 8px); margin-bottom: 4px; padding: 4px; border: 1px solid #ddd; font-size: 12px; box-sizing: border-box;">
-                                <input type="text" value="${post.post_name || ''}" class="klyra-editable-cell" data-id="${post.ID}" data-field="post_name" style="width: calc(100% - 8px); padding: 4px; border: 1px solid #ddd; font-size: 12px; box-sizing: border-box;">
+                                <input type="text" value="${post.post_title || ''}" class="klyra-combo-input" data-id="${post.ID}" data-field="post_title" data-original="${post.post_title || ''}" style="width: calc(100% - 8px); margin-bottom: 4px; padding: 4px; border: 1px solid #ddd; font-size: 12px; box-sizing: border-box; font-weight: bold;">
+                                <input type="text" value="${post.post_name || ''}" class="klyra-combo-input" data-id="${post.ID}" data-field="post_name" data-original="${post.post_name || ''}" style="width: calc(100% - 8px); padding: 4px; border: 1px solid #ddd; font-size: 12px; box-sizing: border-box;">
                             </div>
                         </td>
                     `);
