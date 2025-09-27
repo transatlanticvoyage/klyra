@@ -87,6 +87,7 @@ function klyra_beamraymar_render_page() {
                         <span style="font-size: 16px; font-weight: bold;">mandible_chamber</span>
                         <button id="klyra-create-post-btn" class="button button-primary">Create New Post</button>
                         <button id="klyra-create-page-btn" class="button button-primary">Create New Page</button>
+                        <a href="<?php echo admin_url('admin.php?page=grove_services_mar'); ?>" class="button button-secondary" style="text-decoration: none;">/grove_services_mar</a>
                         <span style="font-size: 16px; font-weight: bold;">post_status</span>
                         <div style="display: inline-flex; border-radius: 6px; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);">
                             <button type="button" data-status="all" class="klyra-status-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; border-radius: 6px 0 0 6px; margin-right: -1px; cursor: pointer; background: white;">all</button>
