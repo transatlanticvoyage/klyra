@@ -21,7 +21,68 @@ function klyra_beamraymar_render_page() {
         <div style="height: 20px;"></div>
         
         <div style="padding: 20px;">
-            <h1 style="margin-bottom: 20px;">Klyra BeamRay Table</h1>
+            <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 15px;">
+                <div style="font-size: 16px; font-weight: bold; text-transform: lowercase;">
+                    <span style="font-weight: bold;"><?php echo esc_html($wpdb->prefix); ?></span>zen_sitespren.sitespren_base: <?php echo esc_html($sitespren_base ?: ''); ?>
+                </div>
+                <div style="border: 1px solid gray; padding: 10px; display: flex; align-items: center; gap: 15px;">
+                    <span style="font-size: 16px; font-weight: bold;">phrenozoic_chamber</span>
+                    <span style="font-size: 16px; font-weight: bold;">post_type</span>
+                    <div style="display: flex; gap: 0;">
+                        <button type="button" data-posttype="all" class="klyra-posttype-filter-btn active" style="padding: 8px 12px; font-size: 14px; border: 1px solid #3B82F6; background: #3B82F6; color: white; border-radius: 4px 0 0 4px; cursor: pointer;">all</button>
+                        <button type="button" data-posttype="page" class="klyra-posttype-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: -1px; background: white; cursor: pointer;">page</button>
+                        <button type="button" data-posttype="post" class="klyra-posttype-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: -1px; border-radius: 0 4px 4px 0; background: white; cursor: pointer;">post</button>
+                    </div>
+                </div>
+                <div style="border: 1px solid gray; padding: 10px; display: flex; align-items: center; gap: 15px;">
+                    <span style="font-size: 16px; font-weight: bold;">venlazoic_chamber</span>
+                </div>
+            </div>
+            <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                <img src="<?php echo KLYRA_PLUGIN_URL . 'klyra-shenzi-asset-mirror/beamraymar-logo-1.png'; ?>" alt="BeamRaymar Logo" style="height: 70px; width: auto; margin-right: 15px;">
+                <h1 style="margin: 0; margin-right: 20px;">Klyra BeamRay Table</h1>
+                <div style="border: 1px solid gray; padding: 10px; display: flex; align-items: center; gap: 15px;">
+                    <span style="font-size: 16px; font-weight: bold;">protozoic_chamber</span>
+                    <span style="font-size: 16px; font-weight: bold;">assigned service page</span>
+                    <div style="display: flex; gap: 0; align-items: center;">
+                        <button type="button" id="klyra-service-prev" style="padding: 8px; font-size: 14px; border: 1px solid #D1D5DB; border-radius: 4px 0 0 4px; cursor: pointer; background: white; margin-right: -1px;">
+                            <svg style="width: 16px; height: 16px; color: #6B7280;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <path d="M1 4v6h6" />
+                                <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
+                            </svg>
+                        </button>
+                        <button type="button" data-filter="all" class="klyra-service-filter-btn active" style="padding: 8px 12px; font-size: 14px; border: 1px solid #3B82F6; background: #3B82F6; color: white; cursor: pointer; margin-left: -1px;">all</button>
+                        <button type="button" data-filter="assigned" class="klyra-service-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: -1px; background: white; cursor: pointer;">assigned only</button>
+                        <button type="button" data-filter="non-assigned" class="klyra-service-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: -1px; background: white; cursor: pointer;">non-assigned only</button>
+                        <button type="button" id="klyra-service-next" style="padding: 8px; font-size: 14px; border: 1px solid #D1D5DB; border-radius: 0 4px 4px 0; cursor: pointer; background: white; margin-left: -1px;">
+                            <svg style="width: 16px; height: 16px; color: #6B7280;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <path d="M23 4v6h-6" />
+                                <path d="M20.49 15a9 9 0 1 1-2.13-9.36L23 10" />
+                            </svg>
+                        </button>
+                    </div>
+                    <span style="font-size: 16px; font-weight: bold;">icepick:</span>
+                    <div style="display: flex; gap: 0; align-items: center;">
+                        <button type="button" id="klyra-icepick-prev" style="padding: 8px; font-size: 14px; border: 1px solid #D1D5DB; border-radius: 4px 0 0 4px; cursor: pointer; background: white; margin-right: -1px;">
+                            <svg style="width: 16px; height: 16px; color: #6B7280;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <path d="M1 4v6h6" />
+                                <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
+                            </svg>
+                        </button>
+                        <button type="button" data-icepick="all" class="klyra-icepick-filter-btn active" style="padding: 8px 12px; font-size: 14px; border: 1px solid #3B82F6; background: #3B82F6; color: white; cursor: pointer; margin-left: -1px;">all</button>
+                        <button type="button" data-icepick="home" class="klyra-icepick-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: -1px; background: white; cursor: pointer;">home</button>
+                        <button type="button" data-icepick="blog" class="klyra-icepick-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: -1px; background: white; cursor: pointer;">blog</button>
+                        <button type="button" data-icepick="assigned" class="klyra-icepick-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: -1px; background: white; cursor: pointer;">assigned only</button>
+                        <button type="button" data-icepick="others" class="klyra-icepick-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: -1px; background: white; cursor: pointer;">others</button>
+                        <button type="button" id="klyra-icepick-next" style="padding: 8px; font-size: 14px; border: 1px solid #D1D5DB; border-radius: 0 4px 4px 0; cursor: pointer; background: white; margin-left: -1px;">
+                            <svg style="width: 16px; height: 16px; color: #6B7280;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <path d="M23 4v6h-6" />
+                                <path d="M20.49 15a9 9 0 1 1-2.13-9.36L23 10" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
             
             <div style="background: white; border: 1px solid #ddd; padding: 15px; margin-bottom: 20px; border-radius: 5px;">
                 <div style="display: flex; align-items: center; gap: 10px; justify-content: space-between;">
@@ -29,9 +90,30 @@ function klyra_beamraymar_render_page() {
                         <span style="font-size: 16px; font-weight: bold;">mandible_chamber</span>
                         <button id="klyra-create-post-btn" class="button button-primary">Create New Post</button>
                         <button id="klyra-create-page-btn" class="button button-primary">Create New Page</button>
-                    </div>
-                    <div style="font-size: 16px; font-weight: bold; text-transform: lowercase;">
-                        <span style="font-weight: bold;"><?php echo esc_html($wpdb->prefix); ?></span>zen_sitespren.sitespren_base: <?php echo esc_html($sitespren_base ?: ''); ?>
+                        <a href="<?php echo admin_url('admin.php?page=grove_services_mar'); ?>" class="button button-secondary" style="text-decoration: none;">/grove_services_mar</a>
+                        <span style="font-size: 16px; font-weight: bold;">post_status</span>
+                        <div style="display: inline-flex; border-radius: 6px; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);">
+                            <button type="button" data-status="all" class="klyra-status-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; border-radius: 6px 0 0 6px; margin-right: -1px; cursor: pointer; background: white;">all</button>
+                            <button type="button" data-status="publish" class="klyra-status-filter-btn active" style="padding: 8px 12px; font-size: 14px; border: 1px solid #3B82F6; background: #3B82F6; color: white; margin-right: -1px; cursor: pointer;">published</button>
+                            <button type="button" data-status="draft" class="klyra-status-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; border-radius: 0 6px 6px 0; cursor: pointer; background: white;">draft</button>
+                        </div>
+                        <span style="font-size: 16px; font-weight: bold;">page_kennel</span>
+                        <div style="display: inline-flex; border-radius: 6px; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);">
+                            <button type="button" data-kennel="all" class="klyra-kennel-filter-btn active" style="padding: 8px 12px; font-size: 14px; border: 1px solid #3B82F6; background: #3B82F6; color: white; border-radius: 6px 0 0 0; margin-right: -1px; cursor: pointer;">all</button>
+                            <button type="button" data-kennel="home" class="klyra-kennel-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-right: -1px; cursor: pointer; background: white;">home</button>
+                            <button type="button" data-kennel="service" class="klyra-kennel-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-right: -1px; cursor: pointer; background: white;">service</button>
+                            <button type="button" data-kennel="location" class="klyra-kennel-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-right: -1px; cursor: pointer; background: white;">location</button>
+                            <button type="button" data-kennel="other" class="klyra-kennel-filter-btn" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; border-radius: 0 6px 6px 0; cursor: pointer; background: white;">other</button>
+                        </div>
+                        <span style="font-size: 16px; font-weight: bold; margin-left: 20px;">With Selected:</span>
+                        <select id="klyra-bulk-action" style="padding: 8px 12px; font-size: 14px; border: 1px solid #D1D5DB; margin-left: 8px; background: white;">
+                            <option value="">Choose action...</option>
+                            <option value="publish">update post_status to publish</option>
+                            <option value="draft">update post_status to draft</option>
+                            <option value="trash">move to trash</option>
+                            <option value="duplicate">duplicate</option>
+                        </select>
+                        <button type="button" id="klyra-bulk-submit" style="padding: 8px 16px; font-size: 14px; border: 1px solid #3B82F6; background: #3B82F6; color: white; margin-left: 8px; cursor: pointer; border-radius: 4px;">submit</button>
                     </div>
                 </div>
             </div>
@@ -47,6 +129,54 @@ function klyra_beamraymar_render_page() {
                         <circle cx="12" cy="6" r="1" fill="white"/>
                     </svg>
                     rocket_chamber
+                    
+                    <!-- Tool Buttons Toggle Switch -->
+                    <div style="display: flex; align-items: center; gap: 8px; margin-left: 20px;">
+                        <div class="klyra-toggle-switch" id="tool-buttons-toggle" style="position: relative; width: 50px; height: 24px; background: #4CAF50; border-radius: 12px; cursor: pointer; transition: background 0.3s;">
+                            <div class="klyra-toggle-knob" style="position: absolute; top: 2px; right: 2px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: all 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.2);"></div>
+                        </div>
+                        <span style="font-size: 16px; font-weight: bold;">tool_buttons</span>
+                    </div>
+                    
+                    <!-- ID Toggle Switch -->
+                    <div style="display: flex; align-items: center; gap: 8px; margin-left: 20px;">
+                        <div class="klyra-toggle-switch" id="id-toggle" style="position: relative; width: 50px; height: 24px; background: #4CAF50; border-radius: 12px; cursor: pointer; transition: background 0.3s;">
+                            <div class="klyra-toggle-knob" style="position: absolute; top: 2px; right: 2px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: all 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.2);"></div>
+                        </div>
+                        <span style="font-size: 16px; font-weight: bold;">id</span>
+                    </div>
+                    
+                    <!-- Post Status Toggle Switch -->
+                    <div style="display: flex; align-items: center; gap: 8px; margin-left: 20px;">
+                        <div class="klyra-toggle-switch" id="post-status-toggle" style="position: relative; width: 50px; height: 24px; background: #4CAF50; border-radius: 12px; cursor: pointer; transition: background 0.3s;">
+                            <div class="klyra-toggle-knob" style="position: absolute; top: 2px; right: 2px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: all 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.2);"></div>
+                        </div>
+                        <span style="font-size: 16px; font-weight: bold;">post_status</span>
+                    </div>
+                    
+                    <!-- Combo Title Name Toggle Switch -->
+                    <div style="display: flex; align-items: center; gap: 8px; margin-left: 20px;">
+                        <div class="klyra-toggle-switch" id="combo-title-name-toggle" style="position: relative; width: 50px; height: 24px; background: #4CAF50; border-radius: 12px; cursor: pointer; transition: background 0.3s;">
+                            <div class="klyra-toggle-knob" style="position: absolute; top: 2px; right: 2px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: all 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.2);"></div>
+                        </div>
+                        <span style="font-size: 16px; font-weight: bold;">combo title name</span>
+                    </div>
+                    
+                    <!-- Post Title Toggle Switch -->
+                    <div style="display: flex; align-items: center; gap: 8px; margin-left: 20px;">
+                        <div class="klyra-toggle-switch" id="post-title-toggle" style="position: relative; width: 50px; height: 24px; background: #4CAF50; border-radius: 12px; cursor: pointer; transition: background 0.3s;">
+                            <div class="klyra-toggle-knob" style="position: absolute; top: 2px; right: 2px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: all 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.2);"></div>
+                        </div>
+                        <span style="font-size: 16px; font-weight: bold;">post_title</span>
+                    </div>
+                    
+                    <!-- Post Name Toggle Switch -->
+                    <div style="display: flex; align-items: center; gap: 8px; margin-left: 20px;">
+                        <div class="klyra-toggle-switch" id="post-name-toggle" style="position: relative; width: 50px; height: 24px; background: #4CAF50; border-radius: 12px; cursor: pointer; transition: background 0.3s;">
+                            <div class="klyra-toggle-knob" style="position: absolute; top: 2px; right: 2px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: all 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.2);"></div>
+                        </div>
+                        <span style="font-size: 16px; font-weight: bold;">post_name</span>
+                    </div>
                 </div>
                 <div style="margin-top: 24px; padding-top: 4px; padding-bottom: 0; padding-left: 8px; padding-right: 8px;">
                     <div style="display: flex; align-items: end; justify-content: space-between;">
@@ -92,8 +222,9 @@ function klyra_beamraymar_render_page() {
                                                 <div style="display: flex; align-items: center;">
                                                     <span style="font-size: 12px; color: #4B5563; margin-right: 8px;">Rows/page:</span>
                                                     <div style="display: inline-flex; border-radius: 6px; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);">
-                                                        <button type="button" data-rows="10" class="klyra-rows-per-page-btn" style="padding: 10px 8px; font-size: 14px; border: 1px solid #D1D5DB; border-radius: 6px 0 0 6px; margin-right: -1px; cursor: pointer; background: white;">10</button>
-                                                        <button type="button" data-rows="25" class="klyra-rows-per-page-btn active" style="padding: 10px 8px; font-size: 14px; border: 1px solid #3B82F6; background: #3B82F6; color: white; margin-right: -1px; cursor: pointer;">25</button>
+                                                        <button type="button" data-rows="8" class="klyra-rows-per-page-btn active" style="padding: 10px 8px; font-size: 14px; border: 1px solid #3B82F6; background: #3B82F6; color: white; border-radius: 6px 0 0 6px; margin-right: -1px; cursor: pointer;">8</button>
+                                                        <button type="button" data-rows="10" class="klyra-rows-per-page-btn" style="padding: 10px 8px; font-size: 14px; border: 1px solid #D1D5DB; margin-right: -1px; cursor: pointer; background: white;">10</button>
+                                                        <button type="button" data-rows="25" class="klyra-rows-per-page-btn" style="padding: 10px 8px; font-size: 14px; border: 1px solid #D1D5DB; margin-right: -1px; cursor: pointer; background: white;">25</button>
                                                         <button type="button" data-rows="50" class="klyra-rows-per-page-btn" style="padding: 10px 8px; font-size: 14px; border: 1px solid #D1D5DB; margin-right: -1px; cursor: pointer; background: white;">50</button>
                                                         <button type="button" data-rows="100" class="klyra-rows-per-page-btn" style="padding: 10px 8px; font-size: 14px; border: 1px solid #D1D5DB; margin-right: -1px; cursor: pointer; background: white;">100</button>
                                                         <button type="button" data-rows="200" class="klyra-rows-per-page-btn" style="padding: 10px 8px; font-size: 14px; border: 1px solid #D1D5DB; margin-right: -1px; cursor: pointer; background: white;">200</button>
@@ -128,12 +259,9 @@ function klyra_beamraymar_render_page() {
                                             </div>
                                         </td>
                                         <td style="border: 1px solid black; padding: 4px;">
-                                            <div style="display: flex; gap: 4px;">
-                                                <button type="button" class="klyra-filter-btn" data-filter="post_type" data-value="post" style="padding: 8px 12px; border: 1px solid #D1D5DB; background: white; cursor: pointer; border-radius: 4px; font-size: 14px;">Post</button>
-                                                <button type="button" class="klyra-filter-btn" data-filter="post_type" data-value="page" style="padding: 8px 12px; border: 1px solid #D1D5DB; background: white; cursor: pointer; border-radius: 4px; font-size: 14px;">Page</button>
-                                                <button type="button" class="klyra-filter-btn" data-filter="post_status" data-value="publish" style="padding: 8px 12px; border: 1px solid #D1D5DB; background: white; cursor: pointer; border-radius: 4px; font-size: 14px;">Published</button>
-                                                <button type="button" class="klyra-filter-btn" data-filter="post_status" data-value="draft" style="padding: 8px 12px; border: 1px solid #D1D5DB; background: white; cursor: pointer; border-radius: 4px; font-size: 14px;">Draft</button>
-                                            </div>
+                                            <button type="button" id="klyra-wolf-options" style="background: #2563EB; color: white; font-weight: 500; padding: 8px 16px; border-radius: 6px; font-size: 14px; transition: background-color 0.15s ease; border: none; cursor: pointer;" onMouseOver="this.style.background='#1D4ED8'" onMouseOut="this.style.background='#2563EB'">
+                                                wolf options
+                                            </button>
                                         </td>
                                         <td style="border: 1px solid black; padding: 4px;">
                                             <button type="button" id="klyra-column-templates" style="background: #7C3AED; color: white; font-weight: 500; padding: 8px 16px; border-radius: 6px; font-size: 14px; transition: background-color 0.15s ease; border: none; cursor: pointer;">
@@ -182,32 +310,79 @@ function klyra_beamraymar_render_page() {
                 <div style="overflow-x: auto;">
                     <table id="klyra-beamray-table" class="klyra-table">
                         <thead>
-                            <tr class="klyra-db-table-name-row">
-                                <th><div class="tcell_inner_wrapper_div"></div></th>
-                                <th><div class="tcell_inner_wrapper_div">misc</div></th>
-                                <th><div class="tcell_inner_wrapper_div"><strong><?php echo esc_html($wpdb->prefix); ?>posts</strong></div></th>
-                                <th><div class="tcell_inner_wrapper_div"><strong><?php echo esc_html($wpdb->prefix); ?>posts</strong></div></th>
-                                <th><div class="tcell_inner_wrapper_div"><strong><?php echo esc_html($wpdb->prefix); ?>posts</strong></div></th>
-                                <th><div class="tcell_inner_wrapper_div"><strong><?php echo esc_html($wpdb->prefix); ?>posts</strong></div></th>
-                                <th><div class="tcell_inner_wrapper_div"><strong><?php echo esc_html($wpdb->prefix); ?>posts</strong></div></th>
-                                <th><div class="tcell_inner_wrapper_div"><strong><?php echo esc_html($wpdb->prefix); ?>postmeta</strong></div></th>
+                            <tr class="shenfur_db_table_name_tr">
+                                <th class="for_db_table_checkbox"><div class="cell_inner_wrapper_div for_db_table_checkbox"></div></th>
+                                <th class="for_db_table_misc"><div class="cell_inner_wrapper_div for_db_table_misc">misc</div></th>
+                                <!-- wp_posts columns -->
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong>wp_posts</strong></div></th>
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong>wp_posts</strong></div></th>
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong>wp_posts</strong></div></th>
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong>wp_posts</strong></div></th>
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong>wp_posts</strong></div></th>
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong>wp_posts</strong></div></th>
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong>wp_posts</strong></div></th>
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong>wp_posts</strong></div></th>
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong>wp_posts</strong></div></th>
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong>wp_posts</strong></div></th>
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong>wp_posts</strong></div></th>
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong>wp_posts</strong></div></th>
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong>wp_posts</strong></div></th>
+                                <th class="for_db_table_wp_posts"><div class="cell_inner_wrapper_div for_db_table_wp_posts"><strong>wp_posts</strong></div></th>
+                                <!-- wp_postmeta column -->
+                                <th class="for_db_table_wp_postmeta"><div class="cell_inner_wrapper_div for_db_table_wp_postmeta"><strong>wp_postmeta</strong></div></th>
+                                <!-- wp_zen_orbitposts columns -->
+                                <th class="for_db_table_wp_zen_orbitposts"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts"><strong>wp_zen_orbitposts</strong></div></th>
+                                <th class="for_db_table_wp_zen_orbitposts"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts"><strong>wp_zen_orbitposts</strong></div></th>
+                                <th class="for_db_table_wp_zen_orbitposts"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts"><strong>wp_zen_orbitposts</strong></div></th>
+                                <th class="for_db_table_wp_zen_orbitposts"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts"><strong>wp_zen_orbitposts</strong></div></th>
+                                <th class="for_db_table_wp_zen_orbitposts"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts"><strong>wp_zen_orbitposts</strong></div></th>
+                                <th class="for_db_table_wp_zen_orbitposts"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts"><strong>wp_zen_orbitposts</strong></div></th>
+                                <th class="for_db_table_wp_zen_orbitposts"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts"><strong>wp_zen_orbitposts</strong></div></th>
+                                <th class="for_db_table_wp_zen_orbitposts"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts"><strong>wp_zen_orbitposts</strong></div></th>
+                                <th class="for_db_table_wp_zen_orbitposts"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts"><strong>wp_zen_orbitposts</strong></div></th>
+                                <th class="for_db_table_wp_zen_orbitposts"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts"><strong>wp_zen_orbitposts</strong></div></th>
+                                <th class="for_db_table_wp_zen_orbitposts"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts"><strong>wp_zen_orbitposts</strong></div></th>
+                                <th class="for_db_table_wp_zen_orbitposts"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts"><strong>wp_zen_orbitposts</strong></div></th>
                             </tr>
                             <tr class="klyra-header-row">
-                                <th class="klyra-checkbox-cell">
-                                    <div class="tcell_inner_wrapper_div"><input type="checkbox" id="klyra-select-all" class="klyra-checkbox"></div>
+                                <th class="klyra-checkbox-cell for_db_table_checkbox">
+                                    <div class="cell_inner_wrapper_div for_db_table_checkbox"><input type="checkbox" id="klyra-select-all" class="klyra-checkbox"></div>
                                 </th>
-                                <th><div class="tcell_inner_wrapper_div">tool_buttons</div></th>
-                                <th data-field="ID"><div class="tcell_inner_wrapper_div">id</div></th>
-                                <th data-field="post_status"><div class="tcell_inner_wrapper_div">post_status</div></th>
-                                <th data-field="post_title"><div class="tcell_inner_wrapper_div">post_title</div></th>
-                                <th data-field="post_name"><div class="tcell_inner_wrapper_div">post_name</div></th>
-                                <th data-field="post_content"><div class="tcell_inner_wrapper_div">post_content</div></th>
-                                <th data-field="_elementor_data"><div class="tcell_inner_wrapper_div">_elementor_data</div></th>
+                                <th class="for_db_table_misc"><div class="cell_inner_wrapper_div for_db_table_misc">tool_buttons</div></th>
+                                <!-- wp_posts columns -->
+                                <th class="for_db_table_wp_posts" data-field="ID"><div class="cell_inner_wrapper_div for_db_table_wp_posts">id</div></th>
+                                <th class="for_db_table_wp_posts" data-field="post_status"><div class="cell_inner_wrapper_div for_db_table_wp_posts">post_status</div></th>
+                                <th class="for_db_table_wp_posts" data-field="combo_title_name"><div class="cell_inner_wrapper_div for_db_table_wp_posts">combo title name</div></th>
+                                <th class="for_db_table_wp_posts klyra-sortable-column" data-field="post_title" style="cursor: pointer; user-select: none;"><div class="cell_inner_wrapper_div for_db_table_wp_posts">post_title <span class="klyra-sort-indicator"></span></div></th>
+                                <th class="for_db_table_wp_posts" data-field="post_name"><div class="cell_inner_wrapper_div for_db_table_wp_posts">post_name</div></th>
+                                <th class="for_db_table_wp_posts" data-field="post_content"><div class="cell_inner_wrapper_div for_db_table_wp_posts">post_content</div></th>
+                                <th class="for_db_table_wp_posts" data-field="post_type"><div class="cell_inner_wrapper_div for_db_table_wp_posts">post_type</div></th>
+                                <th class="for_db_table_wp_posts" data-field="post_date"><div class="cell_inner_wrapper_div for_db_table_wp_posts">post_date</div></th>
+                                <th class="for_db_table_wp_posts" data-field="post_modified"><div class="cell_inner_wrapper_div for_db_table_wp_posts">post_modified</div></th>
+                                <th class="for_db_table_wp_posts" data-field="post_author"><div class="cell_inner_wrapper_div for_db_table_wp_posts">post_author</div></th>
+                                <th class="for_db_table_wp_posts" data-field="post_parent"><div class="cell_inner_wrapper_div for_db_table_wp_posts">post_parent</div></th>
+                                <th class="for_db_table_wp_posts" data-field="menu_order"><div class="cell_inner_wrapper_div for_db_table_wp_posts">menu_order</div></th>
+                                <th class="for_db_table_wp_posts" data-field="comment_status"><div class="cell_inner_wrapper_div for_db_table_wp_posts">comment_status</div></th>
+                                <th class="for_db_table_wp_posts" data-field="ping_status"><div class="cell_inner_wrapper_div for_db_table_wp_posts">ping_status</div></th>
+                                <!-- wp_postmeta column -->
+                                <th class="for_db_table_wp_postmeta" data-field="_elementor_data"><div class="cell_inner_wrapper_div for_db_table_wp_postmeta">_elementor_data</div></th>
+                                <!-- wp_zen_orbitposts columns -->
+                                <th class="for_db_table_wp_zen_orbitposts" data-field="rel_wp_post_id"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts">rel_wp_post_id</div></th>
+                                <th class="for_db_table_wp_zen_orbitposts" data-field="orbitpost_id"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts">orbitpost_id</div></th>
+                                <th class="for_db_table_wp_zen_orbitposts" data-field="redshift_datum"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts">redshift_datum</div></th>
+                                <th class="for_db_table_wp_zen_orbitposts" data-field="rover_datum"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts">rover_datum</div></th>
+                                <th class="for_db_table_wp_zen_orbitposts" data-field="hudson_imgplanbatch_id"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts">hudson_imgplanbatch_id</div></th>
+                                <th class="for_db_table_wp_zen_orbitposts" data-field="is_pinned"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts">is_pinned</div></th>
+                                <th class="for_db_table_wp_zen_orbitposts" data-field="is_flagged"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts">is_flagged</div></th>
+                                <th class="for_db_table_wp_zen_orbitposts" data-field="is_starred"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts">is_starred</div></th>
+                                <th class="for_db_table_wp_zen_orbitposts" data-field="is_squared"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts">is_squared</div></th>
+                                <th class="for_db_table_wp_zen_orbitposts" data-field="created_at"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts">created_at</div></th>
+                                <th class="for_db_table_wp_zen_orbitposts" data-field="updated_at"><div class="cell_inner_wrapper_div for_db_table_wp_zen_orbitposts">updated_at</div></th>
                             </tr>
                         </thead>
                         <tbody id="klyra-beamray-tbody">
                             <tr>
-                                <td colspan="8" class="klyra-loading">Loading data...</td>
+                                <td colspan="31" class="klyra-loading for_db_table_misc"><div class="cell_inner_wrapper_div for_db_table_misc">Loading data...</div></td>
                             </tr>
                         </tbody>
                     </table>

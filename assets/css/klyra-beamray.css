@@ -5,20 +5,17 @@
 }
 
 .klyra-table {
-    width: 100%;
+    width: auto;
     border-collapse: collapse;
     border: 1px solid #ddd;
-    min-width: 1200px;
     font-size: 14px;
+    display: inline-table;
 }
 
 .klyra-table thead {
     background: #f8f9fa;
 }
 
-.klyra-db-table-name-row {
-    background: #e0e0e0;
-}
 
 .klyra-header-row th {
     border: 1px solid #ddd;
@@ -36,13 +33,9 @@
     border: 1px solid #ddd;
     padding: 8px 12px;
     text-align: left;
+    white-space: nowrap;
 }
 
-.klyra-db-table-name-row th {
-    font-weight: bold;
-    text-align: center;
-    background: #e0e0e0;
-}
 
 .klyra-table tbody tr:hover {
     background: #f8f9fa;
@@ -76,7 +69,7 @@
     color: #666;
 }
 
-.tcell_inner_wrapper_div {
+.cell_inner_wrapper_div {
     min-height: 20px;
 }
 
@@ -118,6 +111,36 @@
     background: #005a87;
     color: white;
     text-decoration: none;
+}
+
+.klyra-elementor-btn {
+    width: 36px;
+    height: 36px;
+    background: #800020;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border-radius: 2px;
+    margin-right: 2px;
+}
+
+.klyra-elementor-btn:hover {
+    background: #5c0016;
+    color: white;
+    text-decoration: none;
+}
+
+.klyra-elementor-btn.disabled {
+    background: #ccc;
+    color: #999;
+    cursor: not-allowed;
+    pointer-events: none;
 }
 
 .klyra-modal {
@@ -304,4 +327,93 @@
 .klyra-table td.post-title-cell {
     font-size: 18px;
     font-weight: bold;
+}
+
+/* Wolf Exclusion Band - Sticky columns that remain visible during pagination */
+.wolf-exclusion-band {
+    position: sticky !important;
+    background: #f0f8ff !important;
+    border-right: 2px solid #4a90e2 !important;
+    z-index: 10 !important;
+}
+
+/* Wolf exclusion band sticky positioning */
+.wolf-exclusion-band:nth-child(1) {
+    left: 0px !important;
+    width: 50px !important;
+}
+
+.wolf-exclusion-band:nth-child(2) {
+    left: 50px !important;
+    min-width: 80px !important;
+}
+
+.wolf-exclusion-band:nth-child(3) {
+    left: 130px !important;
+    min-width: 80px !important;
+}
+
+.wolf-exclusion-band:nth-child(4) {
+    left: 210px !important;
+    min-width: 100px !important;
+}
+
+.wolf-exclusion-band:nth-child(5) {
+    left: 310px !important;
+    min-width: 250px !important;
+    width: auto !important;
+}
+
+.wolf-exclusion-band:nth-child(6) {
+    left: 560px !important;
+    min-width: 150px !important;
+}
+
+.wolf-exclusion-band:nth-child(7) {
+    left: 710px !important;
+    min-width: 150px !important;
+}
+
+/* Wolf exclusion band header styling */
+thead .wolf-exclusion-band {
+    background: #e6f3ff !important;
+    font-weight: bold !important;
+    color: #2c5282 !important;
+}
+
+/* Wolf exclusion band row hover effect */
+tbody tr:hover .wolf-exclusion-band {
+    background: #dbeafe !important;
+}
+
+/* Toggle Switch Styles */
+.klyra-toggle-switch.off {
+    background: #ccc !important;
+}
+
+.klyra-toggle-switch.off .klyra-toggle-knob {
+    right: auto !important;
+    left: 2px !important;
+}
+
+/* Combo column specific styling */
+td[data-field="combo_title_name"] {
+    min-width: 250px !important;
+    width: auto !important;
+    white-space: normal !important;
+}
+
+td[data-field="combo_title_name"] .cell_inner_wrapper_div {
+    min-width: 240px !important;
+    padding: 4px !important;
+}
+
+td[data-field="combo_title_name"] input {
+    width: calc(100% - 8px) !important;
+    box-sizing: border-box !important;
+    margin-bottom: 4px !important;
+}
+
+td[data-field="combo_title_name"] input:last-child {
+    margin-bottom: 0 !important;
 }
